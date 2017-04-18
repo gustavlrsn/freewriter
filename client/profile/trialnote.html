@@ -1,0 +1,11 @@
+<template name="trialnote">
+  {{#if trial}}
+  <div class="note">
+    {{#if ended}}
+      <p>Your trial has ended. <a href="/subscribe">Become a paying member now!</a></p>
+    {{else}}
+      <p>Your free trial ends {{endingin}}! <a href="/subscribe">Upgrade now!</a></p>
+    {{/if}}
+  </div>
+  {{/if}}
+</template>

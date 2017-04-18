@@ -1,0 +1,31 @@
+<template name="invoices">
+  <h4 style="margin-top:40px;">Receipts</h4>
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Receipt ID</th>
+        <th>Date</th>
+        <th>Plan</th>
+        <th>Total amount</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {{#each invoices}}
+        <tr>
+          <td><a href="/receipt/{{_id}}">{{_id}}</a></td>
+          <td>{{date}}</td>
+          <td>{{planId}}</td>
+          <td>${{inDollars total}}</td>
+        </tr>
+      {{else}}
+        <tr>
+          <td>Receipt will appear here shortly.</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>

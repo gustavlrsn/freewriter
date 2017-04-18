@@ -1,0 +1,29 @@
+<template name="tribe">
+  <div class="row">
+    <div class="eight columns">
+      {{#if Template.subscriptionsReady}}
+        <h4>{{tribeWordsToday}} words by {{numberOfWriters}} writers today!</h4>
+        {{#each entries}}
+          <p style="margin-bottom:15px;"><img style="margin-right:5px;" class="badge38" src="badges/{{avatar}}.png"> {{name}} wrote {{number_of_words}} words in {{toMinutes elapsed_time}} minutes
+            {{#each unlocks}}
+              <img src="achievements/{{this}}.png" style="width:28px; height:28px; margin:0px;">
+            {{/each}}
+            <span style="color:#AAAAAA">{{toTime createdAt}}</span>
+          </p>
+        {{/each}}
+      {{else}}
+        <p>Loading</p>
+      {{/if}}
+    </div>
+    <div class="four columns">
+
+        <h5>Feeling social?</h5>
+        <p style="margin-bottom:10px;">Meet other users & talk to the developers in our <a href="https://www.facebook.com/groups/FreewriteTribe/" target="_blank">Facebook group</a>. Let's build something great together!</p>
+        <a href="https://www.facebook.com/groups/FreewriteTribe/" class="button button-primary u-full-width" target="_blank"><i class="fa fa-facebook-official fa-lg"></i> Join group</a>
+        <h5 style="margin-top:20px;">Monthly challenge</h5>
+        <img class="u-pull-right" src="achievements/{{currentMonth}}.png" style="width:80px; height:80px; margin-bottom:15px; margin-left:5px;">
+        <p>Hit your daily goal for every day of the month to unlock this badge!</p>
+
+    </div>
+  </div>
+</template>

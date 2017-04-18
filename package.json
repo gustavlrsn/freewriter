@@ -1,0 +1,22 @@
+{
+  "name": "freewrite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "autosize": "^3.0.17",
+    "babel-runtime": "^6.20.0",
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.1",
+    "clipboard": "^1.5.16",
+    "fibers": "^1.0.13",
+    "future": "^2.3.1",
+    "meteor-node-stubs": "^0.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gustav Larsson",
+  "license": "ISC"
+}

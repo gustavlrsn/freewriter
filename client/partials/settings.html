@@ -1,0 +1,40 @@
+<template name="settings">
+  <div class="drop-settings">
+    <div class="row">
+      <div class="eight columns">
+        <label for="toggle-stealth"><span>Stealth mode</span></label>
+      </div>
+      <div class="four columns">
+        <input type="checkbox" name="toggle" class="sw" id="toggle-stealth" {{stealthtoggled}}>
+        <label for="toggle-stealth"></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="eight columns">
+        <label for="toggle-chromotherapy"><span>Chromotherapy</span></label>
+      </div>
+      <div class="four columns">
+        <input type="checkbox" name="toggle" class="sw" id="toggle-chromotherapy" {{chromotoggled}}>
+        <label for="toggle-chromotherapy"></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="eight columns">
+        <label for="toggle-audio"><span>Audio feedback</span></label>
+      </div>
+      <div class="four columns">
+        <input type="checkbox" name="toggle" class="sw" id="toggle-audio" {{audiotoggled}}>
+        <label for="toggle-audio"></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="eight columns">
+        <label for="toggle-backspace"><span>Disable backspace</span></label>
+      </div>
+      <div class="four columns">
+        <input type="checkbox" name="toggle" class="sw" id="toggle-backspace" {{backspacetoggled}}>
+        <label for="toggle-backspace"></label>
+      </div>
+    </div>
+  </div>
+</template>

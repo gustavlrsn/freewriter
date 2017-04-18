@@ -1,0 +1,110 @@
+<template name="header">
+  <header class="main-header {{isActiveRoute 'home' class='landingheader'}}">
+    <div style="margin-left: auto; margin-right:auto;" class="container">
+      <ul>
+
+
+
+        {{#if currentUser}}
+        <li class="u-pull-left">
+          <a href="/write"><img id="purplelogo" style="height:38px; width:38px; margin-right:5px;" src="/logo.png"><img id="whitelogo" style="height:38px; width:38px; margin-right:5px;" src="/logo-chromo.png"></a>
+        </li>
+
+        <li class="u-pull-left {{isActivePath '/write'}}">
+          <a href="/write">Write</a>
+        </li>
+
+        <li class="u-pull-left {{isActivePath '/you'}}">
+          <a href="/you">You</a>
+        </li>
+
+        <li class="u-pull-left {{isActivePath '/tribe'}}">
+          <a href="/tribe">Tribe</a>
+        </li>
+
+
+
+        <li class="u-pull-right">
+
+          {{#dropdownTrigger name="profileNav" }}
+            <a href=""><img id="avatar" class="badge38" src="/badges/{{currentUser.profile.avatar}}.png"></a>
+          {{/dropdownTrigger}}
+          {{#dropdown name="profileNav" align="right" top="25"}}
+          <div class="drop">
+            <!-- <ul class="notifications">
+              <h3>Notifications</h3>
+              <li>Free trial ending in 6 days. Join the tribe today.</li>
+            </ul>-->
+            <ul class="drop-nav">
+              <li><a href="/edit-profile">Edit profile</a></li>
+              <li><a href="/manage-subscription">Manage subscription</a></li>
+              <li><a href="/faq">FAQ</a></li>
+              <li><a href="" class="signout">Sign out</a></li>
+            </ul>
+
+          </div>
+          {{/dropdown}}
+        </li>
+
+        {{#if isActiveRoute 'write'}}
+
+          {{#if nopermission}}
+
+          {{else}}
+
+
+            <li class="u-pull-right">
+              <button id="letitgo" data-id="letitgo" data-tooltip="Erase text but save progress" data-tooltip-direction="s" class="button-letitgo">Let it go</button>
+            </li>
+            <li class="u-pull-right">
+              <a href="" data-id="save" data-tooltip="Save .txt" data-tooltip-direction="s"><i class="fa fa-floppy-o fa-lg"></i></a>
+            </li>
+            <li class="u-pull-right">
+              <a href="" id="copy" data-clipboard-target="#writingarea" data-tooltip="Copy to clipboard" data-tooltip-direction="s"><i class="fa fa-clipboard fa-lg"></i></a>
+            </li>
+            <li class="u-pull-right">
+              <a href="" data-id="toggle-fullscreen" data-tooltip="Toggle fullscreen" data-tooltip-direction="s"><i class="fa fa-arrows-alt fa-lg"></i></a>
+            </li>
+            <li class="u-pull-right">
+              {{#dropdownTrigger name="inspirationals"}}
+              <a href="" data-id="" data-tooltip="Inspirationals" data-tooltip-direction="s"><i class="fa fa-lightbulb-o fa-lg"></i></a>
+              {{/dropdownTrigger}}
+              {{#dropdown name="inspirationals" align="center" top="25"}}
+               {{> inspirationals}}
+              {{/dropdown}}
+            </li>
+            <li class="u-pull-right">
+              {{#dropdownTrigger name="settings"}}
+              <a href="" id="settings-tooltip" data-id="settings" data-tooltip="Experimentals" data-tooltip-direction="s"><i class="fa fa-sliders fa-lg"></i></a>
+              {{/dropdownTrigger}}
+              {{#dropdown name="settings" align="center" top="25"}}
+                {{> settings}}
+              {{/dropdown}}
+            </li>
+          {{/if}}
+
+        {{/if}}
+
+
+
+
+        {{else}}
+        <li class="u-pull-left">
+          <a href="/"><img id="purplelogo" style="height:38px; width:38px; margin-right:5px;" src="/logo.png"><img id="whitelogo" style="height:38px; width:38px; margin-right:5px;" src="/logo-chromo.png"></a>
+        </li>
+        <li class="u-pull-left">
+          <a href="/">Freewrite</a>
+        </li>
+        <li class="u-pull-right {{isActivePath '/signup'}}">
+          <a href="/signup">Sign up</a>
+        </li>
+        <li class="u-pull-right {{isActivePath '/login'}}">
+          <a href="/login">Log in</a>
+        </li>
+
+
+        {{/if}}
+      </ul>
+    </div>
+  </header>
+</template>

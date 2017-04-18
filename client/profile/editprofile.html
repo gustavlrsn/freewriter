@@ -1,0 +1,134 @@
+<template name="editname">
+  <div class="anti-modal-box">
+    <div class="anti-modal-body">
+      <form class="editname-form" style="margin-bottom:0;">
+        <div class="row">
+          <div class="nine columns">
+            <input type="text" name="" class="u-full-width" id="name" value="{{currentUser.profile.name}}" placeholder="New name" style="margin-bottom:0;">
+          </div>
+          <div class="three columns">
+            <button type="submit" class="button-primary u-full-width" style="margin-bottom:0;">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="editgoal">
+  <div class="anti-modal-box">
+    <div class="anti-modal-body">
+      <form class="editgoal-form" style="margin-bottom:0;">
+        <div class="row">
+          <div class="nine columns">
+            <input type="number" name="" class="u-full-width" id="goal" value="{{currentUser.profile.dailygoal}}" placeholder="Daily goal (number of words)" style="margin-bottom:0;">
+          </div>
+          <div class="three columns">
+            <button type="submit" class="button-primary u-full-width" style="margin-bottom:0;">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="editemail">
+  <div class="anti-modal-box">
+    <div class="anti-modal-body">
+      <form class="editemail-form" style="margin-bottom:0;">
+        <div class="row">
+          <div class="nine columns">
+            <input type="email" name="" class="u-full-width" id="email" value="{{currentUser.emails.[0].address}}" placeholder="A valid email adress" style="margin-bottom:0;">
+          </div>
+          <div class="three columns">
+            <button type="submit" class="button-primary u-full-width" style="margin-bottom:0;">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="editpassword">
+  <div class="anti-modal-box">
+    <div class="anti-modal-body" style="text-align:left;">
+      <form class="editpassword-form" style="margin-bottom:0;">
+        <label for="old">Old password</label>
+        <input type="password" name="" class="u-full-width" id="old" value="" placeholder="Your current password">
+        <label for="new">New password</label>
+        <input type="password" name="" class="u-full-width" id="new" value="" placeholder="Choose a new password">
+        <button type="submit" class="button-primary">Change password</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+
+<template name="editprofile">
+  <h4>Edit profile</h4>
+  <div class="row">
+    <div class="six columns">
+      <p><strong>Name:</strong> {{currentUser.profile.name}} <a id="editname" href=""><i class="fa fa-pencil-square fa-lg"></i></a><br />
+        <strong>Daily goal:</strong> {{currentUser.profile.dailygoal}} <a id="editgoal" href=""><i class="fa fa-pencil-square fa-lg"></i></a><br/>
+      </p>
+    </div>
+    <div class="six columns">
+      <p>
+      <strong>Email:</strong> {{currentUser.emails.[0].address}} <a id="editemail" href=""><i class="fa fa-pencil-square fa-lg"></i></a>
+      {{#unless currentUser.emails.[0].verified}}
+          (unverified - <a href="#" class="resend-verification-link">resend verification link</a>)
+      {{/unless}}
+      <br/>
+
+    <strong>Password: </strong><a id="editpassword" href=""><i class="fa fa-pencil-square fa-lg"></i></a><br/></p>
+    </div>
+
+
+  </div>
+
+
+  <p><strong>Click to change avatar</strong></p>
+    <a href=""><img id="achebe" class="badge105" src="badges/achebe.png" title="Chinua Achebe"></a>
+    <a href=""><img id="adams" class="badge105" src="badges/adams.png" title="Douglas Adams"></a>
+    <a href=""><img id="ali" class="badge105" src="badges/ali.png" title="Muhammad Ali"></a>
+    <a href=""><img id="angelou" class="badge105" src="/badges/angelou.png" title="Maya Angelou"></a>
+    <a href=""><img id="arendt" class="badge105" src="badges/arendt.png" title="Hannah Arendt"></a>
+    <a href=""><img id="baldwin" class="badge105" src="badges/baldwin.png" title="James Baldwin"></a>
+    <a href=""><img id="barnes" class="badge105" src="badges/barnes.png" title="Djuna Barnes"></a>
+    <a href=""><img id="beauvoir" class="badge105" src="badges/beauvoir.png" title="Simone de Beauvoir"></a>
+    <a href=""><img id="beckett" class="badge105" src="badges/beckett.png" title="Samuel Beckett"></a>
+    <a href=""><img id="christie" class="badge105" src="badges/christie.png" title="Agatha Christie"></a>
+    <a href=""><img id="dali" class="badge105" src="badges/dali.png" title="Salvador Dali"></a>
+    <a href=""><img id="dostoyevsky" class="badge105" src="badges/dostoyevsky.png" title="Fyodor Dostoyevsky"></a>
+    <a href=""><img id="earhart" class="badge105" src="badges/earhart.png" title="Amelia Earhart"></a>
+    <a href=""><img id="gordimer" class="badge105" src="badges/gordimer.png" title="Nadine Gordimer"></a>
+    <a href=""><img id="hemingway" class="badge105" src="badges/hemingway.png" title="Ernest Hemingway"></a>
+    <a href=""><img id="huxley" class="badge105" src="badges/huxley.png" title="Aldous Huxley"></a>
+    <a href=""><img id="joyce" class="badge105" src="badges/joyce.png" title="James Joyce"></a>
+    <a href=""><img id="jung" class="badge105" src="badges/jung.png" title="Carl Jung"></a>
+    <a href=""><img id="kafka" class="badge105" src="badges/kafka.png" title="Franz Kafka"></a>
+    <a href=""><img id="kahlo" class="badge105" src="badges/kahlo.png" title="Frida Kahlo"></a>
+    <a href=""><img id="kerouac" class="badge105" src="badges/kerouac.png" title="Jack Kerouac"></a>
+    <a href=""><img id="lee" class="badge105" src="badges/lee.png" title="Harper Lee"></a>
+    <a href=""><img id="lennon" class="badge105" src="badges/lennon.png" title="John Lennon"></a>
+    <a href=""><img id="marquez" class="badge105" src="badges/marquez.png" title="Gabriel García Márquez"></a>
+    <a href=""><img id="nin" class="badge105" src="badges/nin.png" title="Anaïs Nin"></a>
+    <a href=""><img id="orwell" class="badge105" src="badges/orwell.png" title="George Orwell"></a>
+    <a href=""><img id="nietzsche" class="badge105" src="badges/nietzsche.png" title="Friedrich Nietzsche"></a>
+    <a href=""><img id="plath" class="badge105" src="badges/plath.png" title="Sylvia Plath"></a>
+    <a href=""><img id="rand" class="badge105" src="badges/rand.png" title="Ayn Rand"></a>
+    <a href=""><img id="rich" class="badge105" src="badges/rich.png" title="Adrienne Rich"></a>
+    <a href=""><img id="salinger" class="badge105" src="/badges/salinger.png" title="J. D. Salinger"></a>
+    <a href=""><img id="steinbeck" class="badge105" src="badges/steinbeck.png" title="John Steinbeck"></a>
+    <a href=""><img id="suyin" class="badge105" src="badges/suyin.png" title="Han Suyin"></a>
+    <a href=""><img id="thoreau" class="badge105" src="badges/thoreau.png" title="Henry David Thoreau"></a>
+    <a href=""><img id="tolkien" class="badge105" src="badges/tolkien.png" title="J. R. R. Tolkien"></a>
+    <a href=""><img id="tolstoy" class="badge105" src="badges/tolstoy.png" title="Leo Tolstoy"></a>
+    <a href=""><img id="tupac" class="badge105" src="badges/tupac.png" title="Tupac Shakur"></a>
+    <a href=""><img id="vonnegut" class="badge105" src="badges/vonnegut.png" title="Kurt Vonnegut"></a>
+    <a href=""><img id="watts" class="badge105" src="badges/watts.png" title="Alan Watts"></a>
+    <a href=""><img id="weil" class="badge105" src="badges/weil.png" title="Simone Weil"></a>
+    <a href=""><img id="whitman" class="badge105" src="badges/whitman.png" title="Walt Whitman"></a>
+    <a href=""><img id="woolf" class="badge105" src="badges/woolf.png" title="Virginia Woolf"></a>
+
+</template>
