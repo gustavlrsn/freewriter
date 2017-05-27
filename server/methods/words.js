@@ -65,7 +65,7 @@ Meteor.methods({
     }
 
     // TOTAL WORD ACHIEVEMENTS
-    var wordsAchievements = [10000, 50000, 100000, 500000, 1000000];
+    var wordsAchievements = [10000, 50000, 100000, 250000, 500000, 1000000];
 
     for (i = 0; i < wordsAchievements.length; i++) {
       if (totalWords < wordsAchievements[i]) {
