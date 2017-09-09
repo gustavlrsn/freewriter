@@ -3,6 +3,7 @@
 ### TODO:
 - [ ] change domain
 - [ ] clean up code
+<<<<<<< HEAD
 - [ ] eventuallly rebuild in react?
 - [ ] make it open source
 - [ ] integrate with Google Docs + Dropbox
@@ -49,3 +50,8 @@
 
 
 Ny design!
+=======
+
+
+- [ ] add twitter/google/facebook login
+>>>>>>> origin/master
