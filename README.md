@@ -1,10 +1,12 @@
 ## Freewriter
 
-### TODO:
+### TODO
 
-- [ ] deploy at DO under new domain (follow guide on Meteor forums)
-- [ ] make app free to use --> capture donations --> maaybe premium vanity feature like "Supporter"
-- [ ] ability to share profile page
-- [ ] switch to usernames @bryan etc
+- [ ] deploy at DO under new domain (freewriter.io)
+- [ ] make it free, but support donations
+- [ ] usernames and profile pages
 - [ ] save to Google Drive/Dropbox
-- [ ] clean up code and use new Meteor best practices like import and new file structure
+- [ ] add twitter/google/facebook login
+- [ ] clean up/refactor code
+
+- [ ] make it open source?
