@@ -4,17 +4,17 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-base@1.0.4
+meteor-base@1.1.0
 mobile-experience@1.0.4
-mongo@1.1.14
+mongo@1.2.0
 blaze-html-templates
 session@1.1.7
 jquery@1.11.10
-tracker@1.1.1
+tracker@1.1.3
 templating
 
 es5-shim@4.6.15
-ecmascript@0.6.1
+ecmascript@0.8.2
 
 kadira:flow-router
 kadira:blaze-layout
@@ -27,17 +27,17 @@ aldeed:collection2
 aldeed:autoform
 matb33:bootstrap-glyphicons
 
-accounts-password@1.3.3
+accounts-password@1.4.0
 
 zimme:active-route
 gwendall:auth-client-callbacks
 meteortoys:allthings
 skeleton:skeleton
 
-check@1.2.4
+check@1.2.5
 
-http@1.2.10
-email@1.1.18
+http@1.2.12
+email@1.2.3
 meteorhacks:ssr
 themeteorchef:bert
 themeteorchef:jquery-validation
@@ -59,12 +59,12 @@ brentjanderson:buzz
 anti:modals
 meteorhacks:picker
 servicelocale:geoip
-force-ssl@1.0.13
+force-ssl@1.0.14
 okgrow:analytics
 
-standard-minifier-css@1.3.2
-standard-minifier-js@1.2.1
-modules@0.7.7
-shell-server
+standard-minifiers@1.1.0
+modules@0.10.0
+shell-server@0.2.4
 mdg:seo
 kadira:dochead
+dynamic-import@0.1.1
