@@ -64,14 +64,14 @@ Template.header.events({
         });
         analytics.identify( Meteor.userId(), {
           email: Meteor.user().emails[0].address,
-          name: Meteor.user().profile.name,
+          username: Meteor.user().username,
           goal: Meteor.user().profile.dailygoal,
           streak: Meteor.user().streak,
           lastday: Meteor.user().lastCompletedDay
         });
 
       });
-      FlowRouter.go("you");
+      FlowRouter.go('/@'+Meteor.user().username);
 
     }
   },
@@ -103,4 +103,8 @@ Template.header.events({
       }
     }
   }
+});
+
+Template.header.helpers({
+  isActivePathYou: () => ActiveRoute.path('/@' + Meteor.user().username) ? 'active' : false
 });

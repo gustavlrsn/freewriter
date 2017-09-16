@@ -9,12 +9,16 @@ Template.login.events({
                 Bert.alert( (err.reason), 'danger', 'growl-top-right' );
             } else {
               FlowRouter.go('write');
-              
+
               analytics.identify( Meteor.userId(), {
                 email: Meteor.user().emails[0].address,
-                name: Meteor.user().profile.name,
+                username: Meteor.user().username,
                 goal: Meteor.user().profile.dailygoal
               });
+
+              if (!Meteor.user().username) {
+                AntiModals.overlay('pickUsername');
+              }
             }
         });
     }

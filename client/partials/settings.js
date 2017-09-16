@@ -1,53 +1,29 @@
 Template.settings.events({
-  'click #toggle-stealth': function() {
+  'click #toggle-stealth': () => {
     $('textarea').toggleClass('stealth');
-    Session.set("stealth", !Session.get("stealth"));
+    Session.set('stealth', !Session.get('stealth'));
   },
-  'click #toggle-backspace': function() {
-    Session.set("preventbackspace", !Session.get("preventbackspace"));
+  'click #toggle-backspace': () => {
+    Session.set('preventbackspace', !Session.get('preventbackspace'));
   },
-  'click #toggle-chromotherapy': function() {
+  'click #toggle-chromotherapy': () => {
     $('body').toggleClass('chromotherapy');
     $('textarea').toggleClass('whitefont');
     $('progress').toggleClass('chromoprogress');
     $('header').toggleClass('chromoheader');
 
-    Session.set("chromotherapy", !Session.get("chromotherapy"));
+    Session.set('chromotherapy', !Session.get('chromotherapy'));
   },
-  'click #toggle-audio': function() {
-    Session.set("audio", !Session.get("audio"));
-    if (Session.get("audio")) {
+  'click #toggle-audio': () => {
+    Session.set('audio', !Session.get('audio'));
+    if (Session.get('audio')) {
       s.load();
     };
   }
 });
 Template.settings.helpers({
-  backspacetoggled: function() {
-    if (Session.get("preventbackspace")) {
-      return "checked";
-    } else {
-      return "";
-    }
-  },
-  stealthtoggled: function() {
-    if (Session.get("stealth")) {
-      return "checked";
-    } else {
-      return "";
-    }
-  },
-  chromotoggled: function() {
-    if (Session.get("chromotherapy")) {
-      return "checked";
-    } else {
-      return "";
-    }
-  },
-  audiotoggled: function() {
-    if (Session.get("audio")) {
-      return "checked";
-    } else {
-      return "";
-    }
-  }
+  backspacetoggled: () => Session.get('preventbackspace') ? 'checked' : '',
+  stealthtoggled: () => Session.get('stealth') ? 'checked' : '',
+  chromotoggled: () => Session.get('chromotherapy') ? 'checked' : '',
+  audiotoggled: () => Session.get('audio') ? 'checked' : ''
 });

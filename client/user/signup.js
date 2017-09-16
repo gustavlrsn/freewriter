@@ -283,13 +283,21 @@ Template.signup.events({
 
         var email = event.target.email.value;
         var password = event.target.password.value;
-        var name = event.target.name.value;
+        var username = event.target.username.value;
         var avatar = Session.get("avatar");
         var dailygoal = Session.get("dailygoal");
 
-        var user = {'email': email, password: password, profile: {name: name, avatar: avatar, dailygoal: dailygoal}};
+        var user = {
+          username,
+          email,
+          password,
+          profile: {
+            avatar,
+            dailygoal
+          }
+        };
 
-        Accounts.createUser(user,function(err){
+        Accounts.createUser(user, function(err) {
             if(err) {
                 Bert.alert( (err.reason), 'danger', 'growl-top-right' );
             } else {
@@ -302,7 +310,7 @@ Template.signup.events({
 
               analytics.identify( Meteor.userId(), {
                 email: Meteor.user().emails[0].address,
-                name: Meteor.user().profile.name,
+                username: Meteor.user().username,
                 goal: Meteor.user().profile.dailygoal,
                 subscription: "trial"
               });

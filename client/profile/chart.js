@@ -1,10 +1,6 @@
-
-
 Template.chart.helpers({
-  wordsPerDay: function() {
-    return aggregatedWords.find({}, {sort: {_id: -1}});
-  },
-  notEmpty: function(){
+  //wordsPerDay: () => aggregatedWords.find({}, {sort: {_id: -1}}),
+  notEmpty: () => {
     var chartData = aggregatedWords.find({}, {sort: {_id: 1}}).fetch();
     if (chartData.length){
       return true;
@@ -14,15 +10,11 @@ Template.chart.helpers({
   }
 });
 
-
 Template.chart.rendered = function() {
-
-
-
-  this.autorun(function () {
+  this.autorun(() => {
     var chartData = aggregatedWords.find({}, {sort: {_id: 1}}).fetch();
-    var negativebase = Meteor.user().profile.dailygoal;
-    
+    //var negativebase = Meteor.user().profile.dailygoal;
+    var negativebase = 750;
     if(chartData.length) {
       var chart = AmCharts.makeChart("chartdiv", {
           "theme": "light",
@@ -92,6 +84,4 @@ Template.chart.rendered = function() {
         }
       }
   });
-
-
 };

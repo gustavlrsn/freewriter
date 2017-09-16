@@ -41,3 +41,25 @@ Meteor.publish("singleInvoice", function(id) {
 
   return Invoices.find({_id: id});
 });
+
+Meteor.publish('singleUser', function(username) {
+  check(username, String);
+  var userId = Meteor.users.findOne({ username: username })._id;
+
+  ReactiveAggregate(this, Words, [{
+    $match: { owner: userId }
+  }, {
+    $group: {
+      '_id': '$date',
+      'total': {
+        $sum: '$number_of_words'
+      }
+    }
+  }], { clientCollection: "aggregatedWords" });
+
+  return [
+    Meteor.users.find({ _id: userId }, { fields: { 'streak': 1, 'lastCompletedDay': 1, 'username': 1, 'profile': 1 }}),
+    Words.find({ owner: userId }),
+    Achievements.find({ owner: userId })
+  ];
+})

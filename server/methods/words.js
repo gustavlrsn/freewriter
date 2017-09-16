@@ -15,8 +15,8 @@ Meteor.methods({
 
 
 
-    var totalWordsToday = number_of_words + Words.find({ date: today, owner: Meteor.userId() }).fetch().map(item => item.number_of_words).reduce((a, b) => a + b, 0);
-    var totalWords = number_of_words + Words.find({ owner: Meteor.userId() }).fetch().map(item => item.number_of_words).reduce((a, b) => a + b, 0);
+    var totalWordsToday = number_of_words + Words.find({ date: today, owner: Meteor.userId() }).fetch().reduce((a, b) => a + b.number_of_words, 0);
+    var totalWords = number_of_words + Words.find({ owner: Meteor.userId() }).fetch().reduce((a, b) => a + b.number_of_words, 0);
 
     if (Meteor.user().lastCompletedDay === yesterday) {
       if (totalWordsToday >= Meteor.user().profile.dailygoal) {
@@ -89,7 +89,7 @@ Meteor.methods({
       createdAt: new Date(),
       date: today,
       owner: Meteor.userId(),
-      name: Meteor.user().profile.name,
+      username: Meteor.user().username,
       avatar: Meteor.user().profile.avatar,
       unlocks: unlocks
     });
