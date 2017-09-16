@@ -9,8 +9,8 @@
           <li class="u-pull-left {{isActivePath '/write'}}">
             <a href="/write">Write</a>
           </li>
-          <li class="u-pull-left {{isActivePath '/you'}}">
-            <a href="/you">You</a>
+          <li class="u-pull-left {{isActivePathYou}}">
+            <a href="/@{{currentUser.username}}">You</a>
           </li>
           <li class="u-pull-left {{isActivePath '/tribe'}}">
             <a href="/tribe">Tribe</a>

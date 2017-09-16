@@ -1,5 +1,5 @@
 Template.chart.helpers({
-  wordsPerDay: () => aggregatedWords.find({}, {sort: {_id: -1}}),
+  //wordsPerDay: () => aggregatedWords.find({}, {sort: {_id: -1}}),
   notEmpty: () => {
     var chartData = aggregatedWords.find({}, {sort: {_id: 1}}).fetch();
     if (chartData.length){
@@ -13,8 +13,8 @@ Template.chart.helpers({
 Template.chart.rendered = function() {
   this.autorun(() => {
     var chartData = aggregatedWords.find({}, {sort: {_id: 1}}).fetch();
-    var negativebase = Meteor.user().profile.dailygoal;
-
+    //var negativebase = Meteor.user().profile.dailygoal;
+    var negativebase = 750;
     if(chartData.length) {
       var chart = AmCharts.makeChart("chartdiv", {
           "theme": "light",

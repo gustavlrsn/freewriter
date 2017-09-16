@@ -3,6 +3,14 @@
 ### TODO
 
 - [ ] usernames and profile pages
+  - [X] signup with username
+  - [X] pick username on login if you don't have one
+  - [X] username route to 'You' page
+  - [X] swap out all uses of name to username
+  - [ ] change username in edit profile
+  - [ ] login with username OR email
+  - [X] see any users profile page on his/her route
+  - [ ] twitter share to profile page, make the avatar the image.. if possible?
 - [ ] add twitter/google/facebook login
 - [ ] save to Google Drive/Dropbox
 - [ ] make it free, but support donations

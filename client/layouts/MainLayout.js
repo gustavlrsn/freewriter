@@ -68,49 +68,12 @@ Template.registerHelper( 'nopermission', () => {
   }
 });
 
-Template.registerHelper( 'wordsToday', () => {
-
-  return totalWordsToday();
-});
-
 function totalWordsToday() {
   var today = moment().format('YYYY-MM-DD');
 
   var total = Words.find({ date: today, owner: Meteor.userId() }).fetch().map(item => item.number_of_words).reduce((a, b) => a + b, 0);
   return total;
 }
-
-Template.registerHelper( 'totalWordsWritten', () => {
-  var total = Words.find({}).fetch().map(item => item.number_of_words).reduce((a, b) => a + b, 0);
-  return total;
-});
-
-Template.registerHelper( 'oldCurrentStreak', () => {
-  var streak = 0;
-  var wordPerDayArray = aggregatedWords.find({}, {sort: {_id: -1}}).fetch();
-
-  for (i = 0; i < wordPerDayArray.length; i++){
-    var testdate = moment().subtract(i + 1, 'days').format('YYYY-MM-DD'); // (Yesterday - (i+1) days) formatted as 'YYYY-MM-DD'
-    var obj = _.find(wordPerDayArray, function(obj) { return obj._id == testdate });
-    if (obj) {
-      if (obj.total >= 750) {
-        streak += 1;
-      } else {
-        break;
-      }
-    } else {
-      break;
-    }
-  }
-  var today = moment().format('YYYY-MM-DD');
-  var obj = _.find(wordPerDayArray, function(obj) { return obj._id == today });
-  if (obj) {
-    if (obj.total >= 750) {
-      streak += 1;
-    }
-  }
-  return streak;
-});
 
 Template.registerHelper( 'currentStreak', () => {
   var streak = Meteor.user().streak;

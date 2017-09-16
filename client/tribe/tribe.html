@@ -4,7 +4,7 @@
       {{#if Template.subscriptionsReady}}
         <h4>{{tribeWordsToday}} words by {{numberOfWriters}} writers today!</h4>
         {{#each entries}}
-          <p style="margin-bottom:15px;"><img style="margin-right:5px;" class="badge38" src="badges/{{avatar}}.png"> @{{username}} wrote {{number_of_words}} words in {{toMinutes elapsed_time}} minutes
+          <p style="margin-bottom:15px;"><img style="margin-right:5px;" class="badge38" src="badges/{{avatar}}.png"> <a href="/@{{username}}">@{{username}}</a> wrote {{number_of_words}} words in {{toMinutes elapsed_time}} minutes
             {{#each unlocks}}
               <img src="achievements/{{this}}.png" style="width:28px; height:28px; margin:0px;">
             {{/each}}

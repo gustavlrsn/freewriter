@@ -104,3 +104,7 @@ Template.header.events({
     }
   }
 });
+
+Template.header.helpers({
+  isActivePathYou: () => ActiveRoute.path('/@' + Meteor.user().username) ? 'active' : false
+});

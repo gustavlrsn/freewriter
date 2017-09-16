@@ -67,7 +67,6 @@ Template.write.events({
       Session.clear("start_time");
     }
     document.title = Session.get("count") + " words - Freewrite";
-    // $('progress').attr('value', Session.get("count") + wordsToday());
   },
   'keydown': function (event) {
     if (event.which == 8 && Session.get("preventbackspace")) {
