@@ -64,7 +64,7 @@ Template.header.events({
         });
         analytics.identify( Meteor.userId(), {
           email: Meteor.user().emails[0].address,
-          name: Meteor.user().profile.name,
+          username: Meteor.user().username,
           goal: Meteor.user().profile.dailygoal,
           streak: Meteor.user().streak,
           lastday: Meteor.user().lastCompletedDay

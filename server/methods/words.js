@@ -89,7 +89,7 @@ Meteor.methods({
       createdAt: new Date(),
       date: today,
       owner: Meteor.userId(),
-      name: Meteor.user().profile.name,
+      username: Meteor.user().username,
       avatar: Meteor.user().profile.avatar,
       unlocks: unlocks
     });
