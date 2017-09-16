@@ -71,7 +71,7 @@ Template.header.events({
         });
 
       });
-      FlowRouter.go("you");
+      FlowRouter.go('/@'+Meteor.user().username);
 
     }
   },
