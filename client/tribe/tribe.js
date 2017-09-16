@@ -6,7 +6,7 @@ Template.tribe.onCreated(function() {
 });
 
 Template.tribe.helpers({
-  entries: ()=> {
+  entries: () => {
     // var today = moment().format('YYYY-MM-DD');
     //find created At last 24 hrs.
     var yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));

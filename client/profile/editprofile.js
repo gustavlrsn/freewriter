@@ -1,5 +1,5 @@
 Template.editname.events({
-    'submit .editname-form': function (event, f) {
+    'submit .editname-form': (event, f) => {
         event.preventDefault();
         var name = event.target.name.value;
         Meteor.users.update({_id: Meteor.userId()}, {$set: {"profile.name": name}});
@@ -8,7 +8,7 @@ Template.editname.events({
 });
 
 Template.editgoal.events({
-  'submit .editgoal-form': function (event, f) {
+  'submit .editgoal-form': (event, f) => {
       event.preventDefault();
       var goal = event.target.goal.value;
       var n = Number(goal);

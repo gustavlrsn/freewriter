@@ -30,7 +30,7 @@ Template.write.onRendered(function() {
     Session.set("count", 0);
   }
 
-  document.title = "Freewrite (" + Session.get("count") + ")";
+  document.title = Session.get("count") + " words - Freewrite";
 
   if (Session.get("stealth")) {
     $('textarea').addClass('stealth');
@@ -42,9 +42,6 @@ Template.write.onRendered(function() {
     $('header').addClass('chromoheader');
     $('textarea').addClass('whitefont');
   }
-
-
-
 });
 
 Template.write.events({
@@ -69,7 +66,7 @@ Template.write.events({
     if (Session.get("count") == 0) {
       Session.clear("start_time");
     }
-    document.title = "Freewrite (" + Session.get("count") + ")";
+    document.title = Session.get("count") + " words - Freewrite";
     // $('progress').attr('value', Session.get("count") + wordsToday());
   },
   'keydown': function (event) {
@@ -103,9 +100,7 @@ Template.write.events({
   }
 });
 Template.write.helpers({
-  counter: function() {
-    return Session.get("count");
-  }
+  counter: () => Session.get('count'),
 });
 
 function countWords(s){
