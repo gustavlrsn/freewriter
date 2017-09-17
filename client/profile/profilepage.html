@@ -4,13 +4,18 @@
       <div class="profile">
         <img src="badges/{{user.profile.avatar}}.png" class="u-max-full-width">
         <h2>{{user.username}}</h2>
-        <hr>
-        <p><strong>{{currentStreak user}} </strong>day streak<br><strong>{{wordsToday user._id}} </strong>words today<br>{{totalWords user._id}} words total</p>
+        <hr />
+        <p>
+          <strong>{{currentStreak user}} </strong>day streak<br />
+          <strong>{{wordsToday user._id}} </strong>words today<br />
+          Daily goal: {{user.profile.dailygoal}}<br />
+          {{totalWords user._id}} words total
+        </p>
       </div>
     </div>
     <div class="nine columns">
       {{#if Template.subscriptionsReady}}
-        {{> chart}}
+        {{> chart dailygoal=user.profile.dailygoal}}
       {{else}}
         Loading...
       {{/if}}
