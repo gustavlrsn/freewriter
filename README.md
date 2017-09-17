@@ -10,7 +10,8 @@
   - [X] change username in edit profile
   - [ ] login with username OR email
   - [X] see any users profile page on his/her route
-  - [ ] twitter share to profile page, make the avatar the image.. if possible?
+  - [X] twitter share to profile page, make the avatar the image.. if possible?
+  - [ ] don't allow spaces and special characters in usernames
 - [ ] add twitter/google/facebook login
 - [ ] save to Google Drive/Dropbox
 - [ ] make it free, but support donations
@@ -25,3 +26,4 @@
 #### Hygiene
 - [ ] Refactor/remove unused publications
 - [ ] Select avatar logic
+- [ ] Publish composite or related data for 'words' collection on Tribe page

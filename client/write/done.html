@@ -5,8 +5,8 @@
 
                 {{#if Template.subscriptionsReady}}
                   <h4>Boom!<br/>You wrote <strong>{{words}} words</strong> in <strong>{{minutes}} minutes</strong> <br/>({{currentStreak}} day streak)</h4>
-                  <a href="http://twitter.com/share?url=https%3A%2F%2Fwww.freewrite.org&text=I%20just%20wrote%20{{words}}%20words%20in%20{{minutes}}%20minutes%20({{currentStreak}} day streak)%20on" target="_blank" class="button button-primary"><i class="fa fa-twitter fa-lg"></i> Tweet</a>
-                  <a href="http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.freewrite.org" target="_blank" class="button button-primary"><i class="fa fa-facebook fa-lg"></i> Share</a>
+                  <a href="http://twitter.com/share?url=https%3A%2F%2Fwww.freewrite.org%2F@{{username}}&text=I%20just%20wrote%20{{words}}%20words%20in%20{{minutes}}%20minutes%20({{currentStreak}} day streak)" target="_blank" class="button button-primary"><i class="fa fa-twitter fa-lg"></i> Tweet</a>
+                  <a href="http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.freewrite.org%2F@{{username}}" target="_blank" class="button button-primary"><i class="fa fa-facebook fa-lg"></i> Share</a>
                     <div style="">
                     {{#each latest.unlocks}}
                       <img src="achievements/{{this}}.png" style="width:80px; height:80px; margin:7px;">
