@@ -34,9 +34,9 @@ Template.subscribe.events({
       StripeCheckout.open({
         key: key,
         amount: total,
-        name: 'Freewrite',
+        name: 'Freewriter',
         email: Meteor.user().emails[0].address,
-        image: 'https://www.freewrite.org/freewrite-logo-square.png',
+        image: 'https://freewriter.io/freewrite-logo-square.png',
         description: 'Monthly subscription',
         panelLabel: 'Subscribe',
         allowRememberMe: false,
@@ -91,9 +91,9 @@ Template.subscribe.events({
       StripeCheckout.open({
         key: key,
         amount: total,
-        name: 'Freewrite',
+        name: 'Freewriter',
         email: Meteor.user().emails[0].address,
-        image: 'https://www.freewrite.org/freewrite-logo-square.png',
+        image: 'https://freewriter.io/freewrite-logo-square.png',
         description: 'Yearly subscription',
         panelLabel: 'Subscribe',
         allowRememberMe: false,

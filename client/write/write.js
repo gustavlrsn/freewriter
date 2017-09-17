@@ -17,7 +17,7 @@ Template.write.onRendered(function() {
     isScrolledToBottom = document.body.scrollHeight - window.innerHeight <= document.body.scrollTop;
   });
 
-  //document.title = "Freewrite (" + Session.get("count") + ")";
+  //document.title = "Freewriter (" + Session.get("count") + ")";
   $('textarea').val(Session.get("writings"));
 
   autosize($('#writingarea'));
@@ -30,7 +30,7 @@ Template.write.onRendered(function() {
     Session.set("count", 0);
   }
 
-  document.title = Session.get("count") + " words - Freewrite";
+  document.title = Session.get("count") + " words - Freewriter";
 
   if (Session.get("stealth")) {
     $('textarea').addClass('stealth');
@@ -66,7 +66,7 @@ Template.write.events({
     if (Session.get("count") == 0) {
       Session.clear("start_time");
     }
-    document.title = Session.get("count") + " words - Freewrite";
+    document.title = Session.get("count") + " words - Freewriter";
   },
   'keydown': function (event) {
     if (event.which == 8 && Session.get("preventbackspace")) {

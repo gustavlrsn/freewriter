@@ -1,9 +1,9 @@
-Accounts.emailTemplates.siteName = "Freewrite";
-Accounts.emailTemplates.from     = "Freewrite <admin@freewrite.org>";
+Accounts.emailTemplates.siteName = "Freewriter";
+Accounts.emailTemplates.from     = "Freewriter <admin@freewriter.io>";
 
 Accounts.emailTemplates.verifyEmail = {
   subject() {
-    return "[Freewrite] Verify Your Email Address";
+    return "[Freewriter] Verify Your Email Address";
   },
   text( user, url ) {
     let emailAddress   = user.emails[0].address,
@@ -16,7 +16,7 @@ Accounts.emailTemplates.verifyEmail = {
 
 Accounts.emailTemplates.resetPassword = {
   subject() {
-    return "Reset password on Freewrite.org";
+    return "Reset password on Freewriter.io";
   },
   text( user, url ) {
     let urlWithoutHash = url.replace( '#/', '' ),

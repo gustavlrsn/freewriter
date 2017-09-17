@@ -52,7 +52,7 @@ Template.header.events({
         Session.clear("writings");
 
         Session.clear("start_time");
-        document.title = "Freewrite";
+        document.title = "Freewriter";
         Tooltips.hide();
 
         // FlowRouter.go("you");
@@ -77,7 +77,7 @@ Template.header.events({
   },
   'click [data-id=save]': function() {
     var blob = new Blob([Session.get("writings")], {type: "text/plain;charset=utf-8"});
-    saveAs(blob, "Freewrite " + moment(new Date()).format('YYYY-MM-DD') + " - " + Session.get("count") + " words" + ".txt");
+    saveAs(blob, "Freewriter " + moment(new Date()).format('YYYY-MM-DD') + " - " + Session.get("count") + " words" + ".txt");
   },
   'click [data-id=toggle-fullscreen]': function () {
     if (!document.fullscreenElement &&    // alternative standard method

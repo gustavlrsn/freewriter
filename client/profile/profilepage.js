@@ -10,9 +10,9 @@ Template.profilepage.onCreated(function() {
 Template.profilepage.onRendered(function() {
   var username = FlowRouter.getParam('username');
   var user = Meteor.users.findOne({username: username});
-  var url = `https://www.freewrite.org/@${username}`;
-  var avatarUrl = `https://www.freewrite.org/badges/${user.profile.avatar}.png`;
-  var title = `@${user.username} at Freewrite`;
+  var url = `https://freewriter.io/@${username}`;
+  var avatarUrl = `https://freewriter.io/badges/${user.profile.avatar}.png`;
+  var title = `@${user.username} at Freewriter`;
   DocHead.addMeta({property: 'description', content: 'Experience the magic of freewriting. Write every day, without stopping to judge or edit.'});
   DocHead.addMeta({property: 'keywords', content: 'freewriting, morning pages, free writing'});
   DocHead.addMeta({property: 'twitter:card', content: 'summary'});
