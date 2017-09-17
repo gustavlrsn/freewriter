@@ -1,10 +1,10 @@
-<template name="editname">
+<template name="editusername">
   <div class="anti-modal-box">
     <div class="anti-modal-body">
-      <form class="editname-form" style="margin-bottom:0;">
+      <form class="editusername-form" style="margin-bottom:0;">
         <div class="row">
           <div class="nine columns">
-            <input type="text" name="" class="u-full-width" id="name" value="{{currentUser.profile.name}}" placeholder="New name" style="margin-bottom:0;">
+            <input type="text" name="" class="u-full-width" id="username" value="{{currentUser.username}}" placeholder="New username" style="margin-bottom:0;">
           </div>
           <div class="three columns">
             <button type="submit" class="button-primary u-full-width" style="margin-bottom:0;">Save</button>
@@ -68,7 +68,7 @@
   <h4>Edit profile</h4>
   <div class="row">
     <div class="six columns">
-      <p><strong>Name:</strong> {{currentUser.profile.name}} <a id="editname" href=""><i class="fa fa-pencil-square fa-lg"></i></a><br />
+      <p><strong>Username:</strong> {{currentUser.username}} <a id="editusername" href=""><i class="fa fa-pencil-square fa-lg"></i></a><br />
         <strong>Daily goal:</strong> {{currentUser.profile.dailygoal}} <a id="editgoal" href=""><i class="fa fa-pencil-square fa-lg"></i></a><br/>
       </p>
     </div>

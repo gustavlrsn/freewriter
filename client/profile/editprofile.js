@@ -1,9 +1,15 @@
-Template.editname.events({
-    'submit .editname-form': (event, f) => {
+Template.editusername.events({
+    'submit .editusername-form': (event, f) => {
         event.preventDefault();
-        var name = event.target.name.value;
-        Meteor.users.update({_id: Meteor.userId()}, {$set: {"profile.name": name}});
-        AntiModals.dismissOverlay($(f.firstNode).parent());
+        var username = event.target.username.value;
+
+        Meteor.call('setUsername', username, function(err, res) {
+          if (res) {
+            AntiModals.dismissOverlay($(f.firstNode).parent());
+          } else {
+            Bert.alert("Username is already taken.");
+          }
+        });
     }
 });
 
@@ -100,8 +106,8 @@ Template.editprofile.events({
     'click #editemail': function() {
       AntiModals.overlay("editemail");
     },
-    'click #editname': function() {
-      AntiModals.overlay("editname");
+    'click #editusername': function() {
+      AntiModals.overlay("editusername");
     },
     'click #editgoal': function() {
       AntiModals.overlay("editgoal");
