@@ -1,7 +1,7 @@
 ## Freewriter
 
 ### TODO
-- [ ] usernames and profile pages
+- [X] usernames and profile pages
   - [X] signup with username
   - [X] pick username on login if you don't have one
   - [X] username route to 'You' page
@@ -12,7 +12,7 @@
   - [X] login with username OR email
   - [X] see any users profile page on his/her route
   - [X] twitter share to profile page, make the avatar the image.. if possible?
-  - [ ] if(!username) not only on login but every page load or so, because what if user is already logged in?
+  - [X] if(!username) not only on login but every page load or so, because what if user is already logged in?
 - [X] deploy at DO under new domain (freewriter.io)
   - [X] swap out all references to www.freewrite.org / freewrite to freewriter.io / freewriter
   - [ ] Set up new mail server on mail.freewriter.io?
@@ -30,7 +30,7 @@
 
 #### Hygiene
 - [ ] Refactor/remove unused publications
-- [ ] Select avatar logic
+- [X] Select avatar logic
 - [ ] Publish composite or related data for 'words' collection on Tribe page
 - [ ] remove old settings.json?
 - [ ] fix dynamic title

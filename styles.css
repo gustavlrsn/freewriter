@@ -563,9 +563,13 @@ a.button:hover {
 }
 .signup-badge {
   opacity: 0.5;
+  cursor: pointer;
 }
 .signup-badge:hover {
   opacity: 1;
+}
+.editbadge {
+  cursor: pointer;
 }
 #scroll {
 width:100%;
