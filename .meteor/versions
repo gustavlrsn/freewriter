@@ -33,7 +33,6 @@ ddp-common@1.2.9
 ddp-rate-limiter@1.0.7
 ddp-server@2.0.1
 deps@1.0.12
-dferber:prerender@2.2.2_3
 diff-sequence@1.0.7
 dynamic-import@0.1.1
 ecmascript@0.8.2
@@ -73,7 +72,6 @@ lookback:dropdowns@1.5.0
 lookback:tooltips@0.6.1
 matb33:bootstrap-base@10.0.0
 matb33:bootstrap-glyphicons@10.0.0
-mdg:seo@1.1.0
 mdg:validation-error@0.5.1
 meteor@1.7.1
 meteor-base@1.1.0
