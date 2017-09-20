@@ -6,9 +6,9 @@ Meteor.publish("tribewords", function () {
   return Words.find({ 'createdAt': {$gte: inputdate } });
 });
 
-Meteor.publish("achievements", function () {
-  return Achievements.find({'owner': this.userId});
-});
+// Meteor.publish("achievements", function () {
+//   return Achievements.find({'owner': this.userId});
+// });
 
 Meteor.publish("userwords", function () {
   return Words.find({'owner': this.userId});
