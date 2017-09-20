@@ -8,7 +8,7 @@
   - [X] swap out all uses of name to username
   - [X] add daily goal to User page, and to graph!
   - [X] change username in edit profile
-  - [ ] validate usernames (only normal characters, numbers)
+  - [X] validate usernames (only normal characters, numbers)
   - [X] login with username OR email
   - [X] see any users profile page on his/her route
   - [X] twitter share to profile page, make the avatar the image.. if possible?
@@ -37,3 +37,4 @@
 - [ ] fix graph so that it is not cut off
 - [ ] fix graph to not display latest 30 entries, but latest 30 days or whatever
 - [ ] deploy without downtime: https://medium.com/@tyvdh/deploying-production-meteor-in-2017-f2983277e872
+- [ ] validate usernames in backend instead of frontend...

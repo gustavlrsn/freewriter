@@ -296,28 +296,31 @@ Template.signup.events({
             dailygoal
           }
         };
+        if (/^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$/.test(username)) {
+          Accounts.createUser(user, function(err) {
+              if(err) {
+                  Bert.alert( (err.reason), 'danger', 'growl-top-right' );
+              } else {
+                Meteor.call( 'sendVerificationLink', ( error, response ) => {
+                  if ( error ) {
+                    Bert.alert( error.reason, 'danger', 'growl-top-right' );
+                  }
+                });
+                FlowRouter.go('write');
 
-        Accounts.createUser(user, function(err) {
-            if(err) {
-                Bert.alert( (err.reason), 'danger', 'growl-top-right' );
-            } else {
-              Meteor.call( 'sendVerificationLink', ( error, response ) => {
-                if ( error ) {
-                  Bert.alert( error.reason, 'danger', 'growl-top-right' );
-                }
-              });
-              FlowRouter.go('write');
-
-              analytics.identify( Meteor.userId(), {
-                email: Meteor.user().emails[0].address,
-                username: Meteor.user().username,
-                goal: Meteor.user().profile.dailygoal,
-                subscription: "trial"
-              });
+                analytics.identify( Meteor.userId(), {
+                  email: Meteor.user().emails[0].address,
+                  username: Meteor.user().username,
+                  goal: Meteor.user().profile.dailygoal,
+                  subscription: "trial"
+                });
 
 
-              AntiModals.overlay("welcome");
-            }
-        });
+                AntiModals.overlay("welcome");
+              }
+          });
+        } else {
+          Bert.alert("Your username can only contain letters, numbers and '_'");
+        }
     }
 });
