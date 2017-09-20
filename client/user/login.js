@@ -15,10 +15,6 @@ Template.login.events({
                 username: Meteor.user().username,
                 goal: Meteor.user().profile.dailygoal
               });
-
-              if (!Meteor.user().username) {
-                AntiModals.overlay('pickUsername');
-              }
             }
         });
     }

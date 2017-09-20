@@ -10,23 +10,21 @@ $(window).on('beforeunload', function () {
   }
 });
 
-
 Template.MainLayout.onRendered(function() {
   header = $('header');
+  if (Meteor.userId() && Meteor.user() && !Meteor.user().username) {
+    AntiModals.overlay('pickUsername');
+  }
 });
-
 
 Template.MainLayout.events({
   'mousemove, click': function () {
-
-        mousemove = mousemove + 1;
-        if ((isFaded) && (mousemove > 1)) {
-          header.stop().animate({ opacity: 100 });
-    			isFaded = false;
-          mousemove = 0;
-    		}
-
-
+    mousemove = mousemove + 1;
+    if ((isFaded) && (mousemove > 1)) {
+      header.stop().animate({ opacity: 100 });
+			isFaded = false;
+      mousemove = 0;
+		}
   }
 });
 Template.MainLayout.helpers({
