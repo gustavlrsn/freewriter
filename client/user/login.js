@@ -1,10 +1,10 @@
 Template.login.events({
     'submit .login-form': function (event) {
         event.preventDefault();
-        var email = event.target.email.value;
+        var emailOrUsername = event.target.emailOrUsername.value;
         var password = event.target.password.value;
 
-        Meteor.loginWithPassword(email,password,function(err){
+        Meteor.loginWithPassword(emailOrUsername, password,function(err){
             if(err) {
                 Bert.alert( (err.reason), 'danger', 'growl-top-right' );
             } else {
