@@ -13,9 +13,10 @@ var seoPicker = Picker.filter(function(req, res) {
 // Indexing user pages
 seoPicker.route('/@:username', function(params, req, res){
     var user = Meteor.users.findOne({ username: params.username });
-    var html = SSR.render('seoLayout',{
+    var html = SSR.render('seoLayout', {
         template: 'seoProfile',
         data: { user: user }
     });
+    res.setHeader( 'Content-Type', 'text/html; charset=utf-8' );
     res.end(html);
 });

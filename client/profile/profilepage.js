@@ -7,30 +7,6 @@ Template.profilepage.onCreated(function() {
 
 });
 
-// Template.profilepage.onRendered(function() {
-//   var username = FlowRouter.getParam('username');
-//   var user = Meteor.users.findOne({username: username});
-//   var url = `https://freewriter.io/@${username}`;
-//   var avatarUrl = `https://freewriter.io/badges/${user.profile.avatar}.png`;
-//   var title = `@${user.username} on Freewriter`;
-//   DocHead.addMeta({property: 'description', content: 'Experience the magic of freewriting. Write every day, without stopping to judge or edit.'});
-//   DocHead.addMeta({property: 'keywords', content: 'freewriting, morning pages, free writing'});
-//   DocHead.addMeta({property: 'twitter:card', content: 'summary'});
-//   DocHead.addMeta({property: 'twitter:title', content: title});
-//   DocHead.addMeta({property: 'twitter:image', content: avatarUrl });
-//   DocHead.addMeta({property: 'twitter:site', content: '@tryfreewrite'});
-//   DocHead.addMeta({property: 'twitter:description', content: 'Experience the magic of freewriting. Write every day, without stopping to judge or edit.'});
-//
-//   DocHead.addMeta({property: 'og:image', content: avatarUrl});
-//   DocHead.addMeta({property: 'og:image:width', content: '512'});
-//   DocHead.addMeta({property: 'og:image:height', content: '512'});
-//   DocHead.addMeta({property: 'og:title', content: title});
-//   DocHead.addMeta({property: 'og:type', content: 'website'});
-//   DocHead.addMeta({property: 'og:description', content: 'Experience the magic of freewriting. Write every day, without stopping to judge or edit.'});
-//   DocHead.addMeta({property: 'og:url', content: url});
-// });
-
-
 Template.profilepage.events({
   'click .resend-verification-link' ( event, template ) {
     Meteor.call( 'sendVerificationLink', ( error, response ) => {
