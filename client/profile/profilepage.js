@@ -27,6 +27,20 @@ Template.profilepage.helpers({
   user: () => {
     return Meteor.users.findOne({username: FlowRouter.getParam('username')});
   },
+  paid: () => {
+    var user = Meteor.users.findOne({username: FlowRouter.getParam('username')});
+    if (user.subscription) {
+      var now = moment().unix();
+      var ends = user.subscription.ends;
+      if (now < ends){
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  },
   currentStreak: user => {
     var today = moment().format('YYYY-MM-DD');
     var yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');

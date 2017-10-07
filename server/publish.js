@@ -52,7 +52,7 @@ Meteor.publish("singleUser", function(username) {
   return [
     Meteor.users.find(
       { _id: userId },
-      { fields: { streak: 1, lastCompletedDay: 1, username: 1, profile: 1 } }
+      { fields: { streak: 1, lastCompletedDay: 1, username: 1, profile: 1, "subscription.ends": 1 } }
     ),
     Words.find({ owner: userId }),
     Achievements.find({ owner: userId })

@@ -20,9 +20,9 @@
 - [X] make it free, but support donations or have a one-time fee?
  - [X] remove trial logic..
  - [X] add support to beome a supporter..
- - [ ] add icon or badge for supporters
+ - [X] add icon or badge for supporters
 - [ ] Update landing page:
-  - [ ] free
+  - [X] free
   - [ ] new copy?
 - [ ] Release to current users!?
 --------
