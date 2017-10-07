@@ -1,11 +1,6 @@
 <template name="write">
-  {{#if nopermission}}
-    <h3>You need to become a paying member!</h3>
-  {{else}}
-    <textarea autofocus id="writingarea" placeholder="Write it out..." wrap="on" spellcheck="false"></textarea>
-    <div class="counter">
-      {{counter}}
-    </div>
-
-  {{/if}}
+  <textarea autofocus id="writingarea" placeholder="Write it out..." wrap="on" spellcheck="false"></textarea>
+  <div class="counter">
+    {{counter}}
+  </div>
 </template>

@@ -2,10 +2,27 @@
   {{#if dontshowsubscribe}}
     <p>You still have time left of your subscription, wait until it is finished to subscribe again!</p>
   {{else}}
-  <h4 style="font-weight:500; text-align:center;">Choose your plan</h4>
-  <p style="font-size:20px; text-align:center;">Get about 20% savings with an annual plan. Cancel any time.</p>
+  <h4 style="font-weight:500; text-align:center;">Become a supporting member!</h4>
+  <p style="font-size:20px; text-align:center;">You'll help pay for the operating costs and future development.</p>
 
   <div class="row" style="margin-top:40px;">
+
+    <!-- <div class="four columns pricebox">
+      <h3>Most popular</h3>
+      <span class="price"><span class="currency">$</span>4</span>
+      <span class="vat">{{vat}}</span>
+      <span class="period">per month</span>
+
+      <button data-id="monthly" style="margin-bottom: 0px;" class="button-pay u-full-width">Pay with Stripe</button>
+    </div> -->
+    <div class="offset-by-four four columns pricebox" style="background-color:#323050;">
+      <h3>Supporter</h3>
+      <span class="price"><span class="currency">$</span>40</span>
+      <span class="vat">{{vat}}</span>
+      <span class="period">per year</span>
+
+      <button data-id="yearly" style="margin-bottom: 0px; color:#323050;" class="button-pay u-full-width">Pay with Stripe</button>
+    </div>
     <div class="four columns" style="margin-top:5px;">
       <label for="country">Your country of residence</label>
       <select class="u-full-width" id="country" placeholder="Choose">
@@ -262,22 +279,6 @@
       </select>
       <p style="text-align:left; margin-bottom:8px;"><strong>Please note:</strong> This will need to match with your IP location <strong>or</strong> your credit card in Stripe. <br><br>We need this information to comply with EU VAT rules. Sorry for the inconvenience!</p>
 
-    </div>
-    <div class="four columns pricebox">
-      <h3>Most popular</h3>
-      <span class="price"><span class="currency">$</span>4</span>
-      <span class="vat">{{vat}}</span>
-      <span class="period">per month</span>
-
-      <button data-id="monthly" style="margin-bottom: 0px;" class="button-pay u-full-width">Pay with Stripe</button>
-    </div>
-    <div class="four columns pricebox" style="background-color:#323050;">
-      <h3>Best value</h3>
-      <span class="price"><span class="currency">$</span>40</span>
-      <span class="vat">{{vat}}</span>
-      <span class="period">per year</span>
-
-      <button data-id="yearly" style="margin-bottom: 0px; color:#323050;" class="button-pay u-full-width">Pay with Stripe</button>
     </div>
   </div>
   {{/if}}

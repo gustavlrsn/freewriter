@@ -4,9 +4,9 @@ Template.managesub.helpers({
     return moment.unix(value).format("YYYY-MM-DD");
 
   },
-  trialing: function(){
+  subscription: function() {
     var user = Meteor.users.findOne({ _id: Meteor.userId() });
-    if (user.subscription && (user.subscription.status == "trialing")){
+    if (user.subscription && (user.subscription.status !== "trialing")) {
       return true;
     }
   },

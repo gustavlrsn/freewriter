@@ -50,22 +50,6 @@ Template.MainLayout.onCreated(function() {
 // Global helpers //
 ///////////////////////////////////////
 
-Template.registerHelper( 'nopermission', () => {
-  var user = Meteor.users.findOne({ _id: Meteor.userId() });
-
-  var now = moment().unix();
-
-  if (user && user.subscription){
-    var ends = user.subscription.ends;
-
-    if (now > ends) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-});
-
 function totalWordsToday() {
   var today = moment().format('YYYY-MM-DD');
 

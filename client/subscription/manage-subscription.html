@@ -1,55 +1,38 @@
 <template name="managesub">
   {{#if Template.subscriptionsReady}}
-
-
-
-
-  {{#if trialing}}
-    <div style="text-align:center; margin-top:100px;">
-      {{#if ended}}
-        <h4 style="font-weight:500;">Your trial has ended.</h4>
-      {{else}}
-        <h4 style="font-weight:500;">Your free trial ends {{endingin}}!</h4>
-      {{/if}}
-    <p style="font-size:20px;">Become a member and support the development.</p>
-   <a href="/subscribe" class="button button-primary">Become a supporting member</a>
-   </div>
-  {{else}}
-    <h3>Manage subscription</h3>
-    {{#if active}}
-      <div class="row">
-        <div class="eight columns">
-          <p>
-            Current plan: <strong>{{currentUser.subscription.plan}} membership</strong> ({{price currentUser.subscription.plan}})<br/>
-            Next payment due: <strong>{{formatDate currentUser.subscription.payment.nextPaymentDue}}</strong> (billed to card ending in {{currentUser.subscription.payment.card.lastFour}})<br/>
-          </p>
-        </div>
-        <div class="four columns">
-          <button data-id="cancel-subscription" class="u-pull-right">Cancel subscription</button>
-        </div>
-      </div>
-
-    {{else}}
-      {{#if stillactive}}
-        <p>Current plan: <strong>{{currentUser.subscription.plan}} membership</strong> (canceled) valid until {{formatDate currentUser.subscription.ends}}</p>
-      {{else}}
+    {{#if subscription}}
+      <h3>Manage subscription</h3>
+      {{#if active}}
         <div class="row">
-          <p>Current plan: none</p>
-          <a href="/subscribe" class="button button-primary">Subscribe</a>
+          <div class="eight columns">
+            <p>
+              Current plan: <strong>{{currentUser.subscription.plan}} membership</strong> ({{price currentUser.subscription.plan}})<br/>
+              Next payment due: <strong>{{formatDate currentUser.subscription.payment.nextPaymentDue}}</strong> (billed to card ending in {{currentUser.subscription.payment.card.lastFour}})<br/>
+            </p>
+          </div>
+          <div class="four columns">
+            <button data-id="cancel-subscription" class="u-pull-right">Cancel subscription</button>
+          </div>
         </div>
+      {{else}}
+        {{#if stillactive}}
+          <p>Current plan: <strong>{{currentUser.subscription.plan}} membership</strong> (canceled) valid until {{formatDate currentUser.subscription.ends}}</p>
+        {{else}}
+          <div class="row">
+            <p>Current plan: none</p>
+            <a href="/subscribe" class="button button-primary">Subscribe</a>
+          </div>
+        {{/if}}
       {{/if}}
+      {{> invoices}}
+    {{else}}
+      <div style="text-align:center; margin-top:100px;">
+        <h4 style="font-weight:500;">Become a supporting member!</h4>
+        <p style="font-size:20px;">Become a member and support the operating costs and future development!</p>
+        <a href="/subscribe" class="button button-primary">Become a supporting member</a>
+      </div>
     {{/if}}
-
-
-    {{> invoices}}
-
-
-  {{/if}}
   {{else}}
     Loading...
   {{/if}}
-
-
-
-
 </template>
