@@ -26,11 +26,11 @@ Template.write.onRendered(function() {
 
   $('textarea').focus();
 
-  if (!Session.get("count")) {
-    Session.set("count", 0);
-  }
-
-  document.title = Session.get("count") + " words - Freewriter";
+  // if (!Session.get("count")) {
+  //   Session.set("count", 0);
+  // }
+  //
+  // document.title = "Freewriter (" + Session.get("count") + ")";
 
   if (Session.get("stealth")) {
     $('textarea').addClass('stealth');
@@ -66,7 +66,7 @@ Template.write.events({
     if (Session.get("count") == 0) {
       Session.clear("start_time");
     }
-    document.title = Session.get("count") + " words - Freewriter";
+    document.title = "Freewriter (" + Session.get("count") + ")";
   },
   'keydown': function (event) {
     if (event.which == 8 && Session.get("preventbackspace")) {
