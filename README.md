@@ -16,7 +16,6 @@
 - [X] deploy at DO under new domain (freewriter.io)
   - [X] swap out all references to www.freewrite.org / freewrite to freewriter.io / freewriter
   - [X] Set up new mail server on freewriter.io
-- [ ] deploy without downtime: https://medium.com/@tyvdh/deploying-production-meteor-in-2017-f2983277e872
 - [X] make it free, but support donations or have a one-time fee?
  - [X] remove trial logic..
  - [X] add support to beome a supporter..
@@ -24,7 +23,17 @@
 - [ ] Update landing page:
   - [X] free
   - [ ] new copy?
-- [ ] Release to current users!?
+- [X] fix autoscroll bug
+- [X] add scroll position fix (verify it works with existing write scroll)
+- [X] increase recommended words to 750!
+- [X] add longest streak to user
+- [X] make settings persist gdamnit.
+- [X] remove underline on links, make links darker on hover, and fix menu links to be darker on hover
+- [X] shadow hover in dropdown
+- [X] fix dynamic title
+- [X] fix graph so that it is not cut off
+- [X] fix graph to not display latest 30 entries, but latest 30 days or whatever (IF POSSIBLE)
+- [ ] deploy without downtime: https://medium.com/@tyvdh/deploying-production-meteor-in-2017-f2983277e872
 --------
 - [ ] add twitter/google/facebook login
 - [ ] new landing/marketing page (broaden use case? display various ideas for use cases)
@@ -34,25 +43,16 @@
 - [ ] add support for challenges
 - [ ] new community page with notes, community challenges, leaderboards etc
 - [ ] add feedback mechanism
-- [ ] confetti on hitting daily goal!
-- [ ] big release
 - [ ] writing programs
 - [ ] groups?
+- [ ] confetti on hitting daily goal!
 
 #### Hygiene
 - [ ] Refactor/remove unused publications
-- [ ] increase recommended words to 750!
-- [ ] add longest streak to user
-- [ ] make settings persist gdamnit.
 - [ ] add sound to prevent backspace
-- [ ] remove underline on links, make links darker on hover, and fix menu links to be darker on hover
-- [ ] shadow hover in dropdown
 - [X] Select avatar logic
 - [ ] Publish composite or related data for 'words' collection on Tribe page
 - [ ] remove old settings.json?
-- [ ] fix dynamic title
-- [ ] fix graph so that it is not cut off
-- [ ] fix graph to not display latest 30 entries, but latest 30 days or whatever
 - [ ] validate usernames in backend instead of frontend...
 - [ ] make it open source?
 - [ ] clean up/refactor code
