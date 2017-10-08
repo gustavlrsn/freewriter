@@ -67,6 +67,12 @@ Template.write.events({
       Session.clear("start_time");
     }
     document.title = "Freewriter (" + Session.get("count") + ")";
+
+    if(!Session.get('confetti') && Session.get("count") + totalWordsToday() > Meteor.user().profile.dailygoal) {
+      confetti();
+      console.log('confetti');
+      Session.set('confetti', true);
+    }
   },
   'keydown': function (event) {
     if (event.which == 8 && Session.get("preventbackspace")) {
@@ -107,3 +113,9 @@ function countWords(s){
     s = s.replace(/[ ]{2,}/gi," ");//2 or more space to 1
     return s.split(' ').length;
 };
+function totalWordsToday() {
+  var today = moment().format('YYYY-MM-DD');
+
+  var total = Words.find({ date: today, owner: Meteor.userId() }).fetch().map(item => item.number_of_words).reduce((a, b) => a + b, 0);
+  return total;
+}
