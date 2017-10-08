@@ -18,8 +18,8 @@ Template.chart.rendered = function() {
           "theme": "light",
           "type": "serial",
           "creditsPosition": "bottom-left",
+          "marginLeft": 0,
           "marginRight": 0,
-          "marginLeft": 5,
           "marginTop": 0,
           "fontFamily": "Roboto",
           "dataProvider": chartData,
@@ -74,11 +74,14 @@ Template.chart.rendered = function() {
         zoomChart();
 
         function zoomChart() {
-            if (chart) {
-                if (chart.zoomToIndexes) {
-                    chart.zoomToIndexes(chart.dataProvider.length - 30, chart.dataProvider.length);
-                }
+          var latestDay = chart.dataProvider[chart.dataProvider.length-1]._id;
+          var start = moment(latestDay).subtract(30, 'days').toDate();
+          var end = moment(latestDay).add(1, 'days').toDate();
+          if (chart) {
+            if (chart.zoomToDates) {
+              chart.zoomToDates(start, end);
             }
+          }
         }
       }
   });

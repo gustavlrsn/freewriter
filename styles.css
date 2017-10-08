@@ -1180,3 +1180,17 @@ progress::-moz-progress-bar {
 .note p {
   margin:0px;
 }
+/* fixing chart */
+svg:not(:root) {
+    overflow: visible !important;
+}
+
+#chartdiv {
+  overflow: visible !important;
+}
+.amcharts-main-div {
+  overflow: visible !important;
+}
+.amcharts-chart-div {
+  overflow: visible !important;
+}
