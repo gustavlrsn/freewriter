@@ -52,6 +52,13 @@ Template.profilepage.helpers({
       return 0;
     }
   },
+  longestStreak: user => {
+    if(user.longestStreak) {
+      return user.longestStreak;
+    } else {
+      return 0;
+    }
+  },
   wordsToday: id => {
     var today = moment().format('YYYY-MM-DD');
     return Words.find({ date: today, owner: id }).fetch().reduce((acc, obj) => acc + obj.number_of_words, 0);

@@ -4,16 +4,12 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
-
-
     var start = start_time;
     var end = end_time;
     var elapsed_time = end - start;
     var newstreak = 0;
 
     var unlocks = [];
-
-
 
     var totalWordsToday = number_of_words + Words.find({ date: today, owner: Meteor.userId() }).fetch().reduce((a, b) => a + b.number_of_words, 0);
     var totalWords = number_of_words + Words.find({ owner: Meteor.userId() }).fetch().reduce((a, b) => a + b.number_of_words, 0);
@@ -34,6 +30,13 @@ Meteor.methods({
       } else {
         Meteor.users.update(this.userId, {$set: {streak: 0}}, {upsert: true});
       }
+    }
+
+    // SET LONGEST STREAK
+    if (!Meteor.user().longestStreak) {
+      Meteor.users.update(this.userId, {$set: {longestStreak: newstreak}});
+    } else if (newstreak > Meteor.user().longestStreak) {
+      Meteor.users.update(this.userId, {$set: {longestStreak: newstreak}});
     }
 
     // DAILY STREAK ACHIEVEMENTS
