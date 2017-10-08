@@ -41,7 +41,6 @@ Template.MainLayout.onCreated(function() {
   var self = this;
   self.autorun(function() {
     self.subscribe('userwords');
-    self.subscribe('wordsPerDay');
     self.subscribe('userData');
   });
 });
