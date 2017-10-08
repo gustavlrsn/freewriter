@@ -29,7 +29,7 @@ Template.profilepage.helpers({
   },
   paid: () => {
     var user = Meteor.users.findOne({username: FlowRouter.getParam('username')});
-    if (user.subscription) {
+    if (user && user.subscription) {
       var now = moment().unix();
       var ends = user.subscription.ends;
       if (now < ends){

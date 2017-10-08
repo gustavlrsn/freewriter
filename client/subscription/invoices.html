@@ -14,7 +14,7 @@
       {{#each invoices}}
         <tr>
           <td><a href="/receipt/{{_id}}">{{_id}}</a></td>
-          <td>{{date}}</td>
+          <td>{{formatDate date}}</td>
           <td>{{planId}}</td>
           <td>${{inDollars total}}</td>
         </tr>

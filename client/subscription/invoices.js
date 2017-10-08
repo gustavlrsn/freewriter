@@ -11,5 +11,8 @@ Template.invoices.helpers({
   },
   inDollars: function(amount){
     return (amount/100);
+  },
+  formatDate: function(value) {
+    return moment.unix(value).format("YYYY-MM-DD");
   }
 });
