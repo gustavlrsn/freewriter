@@ -1,10 +1,10 @@
 Template.settings.events({
   'click #toggle-stealth': () => {
     $('textarea').toggleClass('stealth');
-    Session.set('stealth', !Session.get('stealth'));
+    Session.setPersistent('stealth', !Session.get('stealth'));
   },
   'click #toggle-backspace': () => {
-    Session.set('preventbackspace', !Session.get('preventbackspace'));
+    Session.setPersistent('preventbackspace', !Session.get('preventbackspace'));
   },
   'click #toggle-chromotherapy': () => {
     $('body').toggleClass('chromotherapy');
@@ -12,10 +12,10 @@ Template.settings.events({
     $('progress').toggleClass('chromoprogress');
     $('header').toggleClass('chromoheader');
 
-    Session.set('chromotherapy', !Session.get('chromotherapy'));
+    Session.setPersistent('chromotherapy', !Session.get('chromotherapy'));
   },
   'click #toggle-audio': () => {
-    Session.set('audio', !Session.get('audio'));
+    Session.setPersistent('audio', !Session.get('audio'));
     if (Session.get('audio')) {
       s.load();
     };
