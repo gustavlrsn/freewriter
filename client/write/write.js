@@ -14,7 +14,7 @@ var isScrolledToBottom = true;
 Template.write.onRendered(function() {
 
   $(window).scroll(function(){
-    isScrolledToBottom = document.body.scrollHeight - window.innerHeight <= document.body.scrollTop;
+    isScrolledToBottom = document.body.scrollHeight - window.innerHeight <= document.documentElement.scrollTop;
   });
 
   //document.title = "Freewriter (" + Session.get("count") + ")";
@@ -47,7 +47,7 @@ Template.write.onRendered(function() {
 Template.write.events({
   'input textarea': function() {
     if(isScrolledToBottom) {
-      document.body.scrollTop = 10000000;
+      document.documentElement.scrollTop = 10000000;
     }
   },
   'keyup textarea': function () {
