@@ -22,14 +22,14 @@
             {{#dropdown name="profileNav" align="right" top="25"}}
             <div class="drop">
               <ul class="drop-nav">
-                <li><a href="/edit-profile">Edit profile</a></li>
+                <a href="/edit-profile"><li>Edit profile</li></a>
                 {{#if currentUser.subscription}}
-                <li><a href="/manage-subscription">Manage subscription</a></li>
+                <a href="/manage-subscription"><li>Manage subscription</li></a>
                 {{else}}
-                <li><a href="/subscribe">Become a supporter</a></li>
+                <a href="/subscribe"><li>Become a supporter</li></a>
                 {{/if}}
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="" class="signout">Sign out</a></li>
+                <a href="/faq"><li>FAQ</li></a>
+                <a href="" class="signout"><li>Sign out</li></a>
               </ul>
             </div>
             {{/dropdown}}
