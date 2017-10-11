@@ -53,7 +53,7 @@ Template.profilepage.helpers({
     }
   },
   longestStreak: user => {
-    if(user.longestStreak) {
+    if(user && user.longestStreak) {
       return user.longestStreak;
     } else {
       return 0;

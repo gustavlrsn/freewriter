@@ -12,7 +12,11 @@ Template.chart.helpers({
 Template.chart.rendered = function() {
   this.autorun(() => {
     var chartData = aggregatedWords.find({}, {sort: {_id: 1}}).fetch();
-    var negativebase = this.data.dailygoal;
+    var negativebase = 0;
+    if (this.data.dailygoal) {
+      negativebase = this.data.dailygoal;
+    }
+    //var negativebase = this.data.dailygoal;
     if(chartData.length) {
       var chart = AmCharts.makeChart("chartdiv", {
           "theme": "light",
