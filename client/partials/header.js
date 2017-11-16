@@ -1,87 +1,112 @@
-import Clipboard from 'clipboard';
+import Clipboard from "clipboard";
 
 Template.header.onRendered(function() {
-  var clipboard = new Clipboard('#copy');
+  var clipboard = new Clipboard("#copy");
 
-  clipboard.on('success', function(e) {
-      $('.inner').html('Copy to clipboard<br>Copied!');
-      e.clearSelection();
+  clipboard.on("success", function(e) {
+    $(".inner").html("Copy to clipboard<br>Copied!");
+    e.clearSelection();
   });
 
-  clipboard.on('error', function(e) {
-      $('.inner').html('Copy to clipboard<br>⌘+C to copy');
+  clipboard.on("error", function(e) {
+    $(".inner").html("Copy to clipboard<br>⌘+C to copy");
   });
-
 });
 
 Template.header.events({
-  'click .signout': function() {
+  "click .signout": function() {
     event.preventDefault();
 
-    Meteor.logout(function(error){
-      if(error){
+    Meteor.logout(function(error) {
+      if (error) {
         alert(error.reason);
       } else {
-        FlowRouter.go('/')
+        FlowRouter.go("/");
         Session.clear();
       }
     });
   },
-  'click [data-id=letitgo]': function() {
+  "click [data-id=letitgo]": function() {
     var number_of_words = Session.get("count");
     var start_time = Session.get("start_time");
     var end_time = Date.now();
-    var today = moment().format('YYYY-MM-DD');
-    var yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
-    var lastdayofmonth = moment().endOf('month').format('YYYY-MM-DD');
+    var today = moment().format("YYYY-MM-DD");
+    var yesterday = moment()
+      .subtract(1, "days")
+      .format("YYYY-MM-DD");
+    var lastdayofmonth = moment()
+      .endOf("month")
+      .format("YYYY-MM-DD");
     var daysinmonth = moment().daysInMonth();
-    var month = moment().format('YYMM');
-
+    var month = moment().format("YYMM");
 
     if (!number_of_words == 0) {
       Session.setTemp("latest_words", number_of_words);
       Session.setTemp("latest_time", end_time - start_time);
 
-      $('#letitgo').attr('disabled', true);
+      $("#letitgo").attr("disabled", true);
 
-      Meteor.call("addWordCount", number_of_words, start_time, end_time, today, yesterday, lastdayofmonth, daysinmonth, month, function(){
+      Meteor.call(
+        "addWordCount",
+        number_of_words,
+        start_time,
+        end_time,
+        today,
+        yesterday,
+        lastdayofmonth,
+        daysinmonth,
+        month,
+        function() {
+          Session.setAuth("count", 0);
 
-        Session.setAuth("count", 0);
+          // outside before
+          Session.clear("writings");
 
-        // outside before
-        Session.clear("writings");
+          Session.clear("start_time");
+          document.title = "Freewriter";
+          Tooltips.hide();
 
-        Session.clear("start_time");
-        document.title = "Freewriter";
-        Tooltips.hide();
+          // FlowRouter.go("you");
 
-        // FlowRouter.go("you");
+          AntiModals.overlay("done");
 
-        AntiModals.overlay("done");
-
-        analytics.track('Wrote', {
-          words: number_of_words
-        });
-        analytics.identify( Meteor.userId(), {
-          email: Meteor.user().emails[0].address,
-          username: Meteor.user().username,
-          goal: Meteor.user().profile.dailygoal,
-          streak: Meteor.user().streak,
-          lastday: Meteor.user().lastCompletedDay
-        });
-
-      });
-      FlowRouter.go('/@'+Meteor.user().username);
-
+          analytics.track("Wrote", {
+            words: number_of_words
+          });
+          analytics.identify(Meteor.userId(), {
+            email: Meteor.user().emails[0].address,
+            username: Meteor.user().username,
+            goal: Meteor.user().profile.dailygoal,
+            streak: Meteor.user().streak,
+            lastday: Meteor.user().lastCompletedDay
+          });
+        }
+      );
+      FlowRouter.go("/@" + Meteor.user().username);
     }
   },
-  'click [data-id=save]': function() {
-    var blob = new Blob([Session.get("writings")], {type: "text/plain;charset=utf-8"});
-    saveAs(blob, "Freewriter " + moment(new Date()).format('YYYY-MM-DD') + " - " + Session.get("count") + " words" + ".txt");
+  "click [data-id=save]": function() {
+    var blob = new Blob([Session.get("writings")], {
+      type: "text/plain;charset=utf-8"
+    });
+    saveAs(
+      blob,
+      "Freewriter " +
+        moment(new Date()).format("YYYY-MM-DD") +
+        " - " +
+        Session.get("count") +
+        " words" +
+        ".txt"
+    );
   },
-  'click [data-id=toggle-fullscreen]': function () {
-    if (!document.fullscreenElement &&    // alternative standard method
-        !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+  "click [data-id=toggle-fullscreen]": function() {
+    if (
+      !document.fullscreenElement && // alternative standard method
+      !document.mozFullScreenElement &&
+      !document.webkitFullscreenElement &&
+      !document.msFullscreenElement
+    ) {
+      // current working methods
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
       } else if (document.documentElement.msRequestFullscreen) {
@@ -89,7 +114,9 @@ Template.header.events({
       } else if (document.documentElement.mozRequestFullScreen) {
         document.documentElement.mozRequestFullScreen();
       } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        document.documentElement.webkitRequestFullscreen(
+          Element.ALLOW_KEYBOARD_INPUT
+        );
       }
     } else {
       if (document.exitFullscreen) {
@@ -106,5 +133,6 @@ Template.header.events({
 });
 
 Template.header.helpers({
-  isActivePathYou: () => ActiveRoute.path('/@' + Meteor.user().username) ? 'active' : false
+  isActivePathYou: () =>
+    ActiveRoute.path("/@" + Meteor.user().username) ? "active" : false
 });
