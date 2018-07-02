@@ -36,7 +36,7 @@
           </li>
           {{#if isActiveRoute 'write'}}
             <li class="u-pull-right">
-              <button id="letitgo" data-id="letitgo" data-tooltip="Erase text but save progress" data-tooltip-direction="s" class="button-letitgo">Let it go</button>
+              <button id="letitgo" data-id="letitgo" data-tooltip="{{#if haveReachedDailygoal}}Erase text but save progress{{else}}You need to reach your daily goal before letting go :){{/if}}" data-tooltip-direction="s" class="button-letitgo {{#if haveReachedDailygoal}}letitgo-done{{/if}}">Let it go</button>
             </li>
             <li class="u-pull-right">
               <a href="" data-id="save" data-tooltip="Save .txt" data-tooltip-direction="s"><i class="fa fa-floppy-o fa-lg"></i></a>

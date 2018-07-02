@@ -14,7 +14,7 @@ Template.header.onRendered(function() {
 });
 
 Template.header.events({
-  "click .signout": function() {
+  "click .signout": function(event) {
     event.preventDefault();
 
     Meteor.logout(function(error) {
@@ -40,7 +40,10 @@ Template.header.events({
     var daysinmonth = moment().daysInMonth();
     var month = moment().format("YYMM");
 
-    if (!number_of_words == 0) {
+    console.log(Blaze._globalHelpers["totalWordsToday"]());
+    console.log(Meteor.user().profile.dailygoal);
+    var totalWordsToday = Blaze._globalHelpers["totalWordsToday"]();
+    if (totalWordsToday + number_of_words >= Meteor.user().profile.dailygoal) {
       Session.setTemp("latest_words", number_of_words);
       Session.setTemp("latest_time", end_time - start_time);
 
@@ -133,6 +136,11 @@ Template.header.events({
 });
 
 Template.header.helpers({
+  haveReachedDailygoal: () => {
+    var totalWordsToday = Blaze._globalHelpers["totalWordsToday"]();
+    var number_of_words = Session.get("count");
+    return totalWordsToday + number_of_words >= Meteor.user().profile.dailygoal;
+  },
   isActivePathYou: () =>
     ActiveRoute.path("/@" + Meteor.user().username) ? "active" : false
 });

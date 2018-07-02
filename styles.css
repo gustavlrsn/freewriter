@@ -299,13 +299,24 @@ header.main-header ul li button {
   letter-spacing: 0rem;
 }
 header.main-header ul li button.button-letitgo {
-  color: #4b489b;
-  border: 1px #4b489b solid;
+  color: #777777;
+  border: 1px #777777 solid;
+  cursor: default;
 }
 header.main-header ul li button.button-letitgo:hover {
-  background-color: #4b489b;
-  color: #ffffff;
-  border: 1px #4b489b solid;
+  color: #777777;
+  border: 1px #777777 solid;
+}
+
+.letitgo-done {
+  color: #4b489b !important;
+  border: 1px #4b489b solid !important;
+}
+.letitgo-done:hover {
+  background-color: #4b489b !important;
+  color: #ffffff !important;
+  border: 1px #4b489b solid !important;
+  cursor: pointer !important;
 }
 
 header.main-header ul li button.button-letitgo-alt {
