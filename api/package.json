@@ -1,0 +1,26 @@
+{
+  "name": "selfwriter-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Gustav Larsson",
+  "license": "ISC",
+  "prettier": {
+    "singleQuote": true
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "dependencies": {
+    "apollo-server-micro": "^2.9.12",
+    "date-fns": "^2.9.0",
+    "graphql": "^14.5.8",
+    "jsonwebtoken": "^8.5.1",
+    "mailgun-js": "^0.22.0",
+    "micro-cors": "^0.1.1",
+    "mongoose": "^5.7.12"
+  }
+}
