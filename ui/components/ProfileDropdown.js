@@ -51,7 +51,8 @@ const ProfileDropdown = ({ currentUser, logOut }) => {
             </a>
             <a
               href="#"
-              className="block px-2 py-1 text-gray-500 hover:bg-gray-200 rounded-lg"
+              onClick={logOut}
+              className="block px-2 py-1 text-gray-500 hover:bg-gray-200 rounded-lg flex-auto"
             >
               Sign out
             </a>

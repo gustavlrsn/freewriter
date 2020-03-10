@@ -46,14 +46,13 @@ export default ({ children, currentUser, apollo, showHeader }) => {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
-
       <Header
         currentUser={currentUser}
         logOut={logOut}
         showHeader={showHeader}
       />
 
-      <div className="mx-3">{children}</div>
+      <div className="max-w-screen-md mx-auto p-3">{children}</div>
     </>
   );
 };

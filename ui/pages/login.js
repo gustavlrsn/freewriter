@@ -28,7 +28,7 @@ export default ({ currentUser }) => {
               : "Find the magic link in console (in development)."}
           </div>
         ) : (
-          <div
+          <form
             onSubmit={handleSubmit(({ email }) => {
               sendMagicLink({ variables: { email } });
             })}
@@ -50,7 +50,7 @@ export default ({ currentUser }) => {
             </div>
 
             {errors.email && email.title.message}
-          </div>
+          </form>
         )}
       </div>
     </div>
