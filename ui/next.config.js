@@ -4,7 +4,6 @@ const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD
 } = require("next/constants");
-const withCSS = require("@zeit/next-css");
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true"
@@ -19,9 +18,7 @@ module.exports = phase => {
       : "https://freewriter.io/api",
     IS_PROD: isProd
   };
-  return withBundleAnalyzer(
-    withCSS({
-      env
-    })
-  );
+  return withBundleAnalyzer({
+    env
+  });
 };

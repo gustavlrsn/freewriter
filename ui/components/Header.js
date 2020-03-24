@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import cookie from "js-cookie";
 
 import ProfileDropdown from "./ProfileDropdown";
@@ -45,13 +45,17 @@ import ProfileDropdown from "./ProfileDropdown";
 
 export default ({ currentUser, logOut, showHeader }) => {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
+  const router = useRouter();
+
   return (
-    <header className="border-b border-gray-200 ">
-      <div className="max-w-screen-md mx-auto sm:flex sm:items-center p-0 sm:p-3">
+    <header className="border-b border-gray-200">
+      <div className="max-w-screen-md mx-auto sm:flex sm:items-center p-0 sm:px-3 h-16">
         <div className="flex items-center justify-between p-3 sm:p-0">
-          <div>
-            <img className="h-10" src="/logo.png" alt="Freewriter" />
-          </div>
+          <Link href="/">
+            <a>
+              <img className="h-10" src="/img/logo.png" alt="Freewriter" />
+            </a>
+          </Link>
           <div className="sm:hidden flex">
             <button className="bg-purple-700 text-white rounded px-2 py-1">
               Let go
@@ -77,32 +81,51 @@ export default ({ currentUser, logOut, showHeader }) => {
         <nav
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } sm:flex flex-auto justify-between`}
+          } sm:flex flex-auto justify-between h-full`}
         >
           {currentUser ? (
             <>
-              <div className="px-2 py-3 sm:flex  sm:p-0 sm:items-center">
+              <div className="px-2 py-3 sm:flex sm:p-0 sm:items-center ">
                 <Link href="/">
-                  <a className="block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
+                  <a
+                    className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
+                      router.pathname === "/"
+                        ? "border-purple-700 text-gray-800"
+                        : "border-transparent text-gray-600"
+                    }`}
+                  >
                     Write
                   </a>
                 </Link>
                 <Link href="/[username]" as={`/@${currentUser.username}`}>
-                  <a className="mt-1 block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
+                  <a
+                    className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
+                      router.pathname === "/[username]"
+                        ? "border-purple-700 text-gray-800"
+                        : "border-transparent text-gray-600"
+                    }`}
+                  >
                     Stats
                   </a>
                 </Link>
-                <a
-                  href="#"
-                  className="mt-1 block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2"
-                >
-                  Tribe
-                </a>
+                <Link href="/tribe">
+                  <a
+                    className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
+                      router.pathname === "/tribe"
+                        ? "border-purple-700 text-gray-800"
+                        : "border-transparent text-gray-600"
+                    }`}
+                  >
+                    Tribe
+                  </a>
+                </Link>
               </div>
               <div className="sm:flex items-center">
-                <button className="bg-purple-700 text-white rounded px-2 py-1 hidden sm:block">
-                  Let go
-                </button>
+                {router.pathname === "/" && (
+                  <button className="bg-purple-700 text-white rounded px-2 py-1 hidden sm:block">
+                    Let go
+                  </button>
+                )}
 
                 <div className="hidden sm:block sm:ml-4">
                   <ProfileDropdown currentUser={currentUser} logOut={logOut} />

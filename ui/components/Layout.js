@@ -52,7 +52,7 @@ export default ({ children, currentUser, apollo, showHeader }) => {
         showHeader={showHeader}
       />
 
-      <div className="max-w-screen-md mx-auto p-3">{children}</div>
+      <div className="max-w-screen-md mx-auto px-3 py-10">{children}</div>
     </>
   );
 };
