@@ -5,6 +5,7 @@ const schema = gql`
     currentUser: User
     users: [User]
     user(username: String!): User
+    tribeWords: [Words]
   }
 
   type Mutation {

@@ -15,6 +15,13 @@ const resolvers = {
     },
     user: async (parent, { username }, { models: { User } }) => {
       return User.findOne({ username });
+    },
+    tribeWords: async (parent, args, { currentUser, models: { Words } }) => {
+      if (!currentUser) throw new Error('You need to be logged in.');
+
+      return Words.find({
+        createdAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) }
+      });
     }
   },
   Mutation: {
@@ -122,6 +129,11 @@ const resolvers = {
         { $group: { _id: null, wordsTotal: { $sum: '$number_of_words' } } }
       ]);
       return wordsTotal;
+    }
+  },
+  Words: {
+    owner: async (words, args, { models: { User } }) => {
+      return User.findOne({ _id: words.owner });
     }
   },
   Date: new GraphQLScalarType({
