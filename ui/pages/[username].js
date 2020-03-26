@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import { Tooltip } from "react-tippy";
+import dayjs from "dayjs";
 
 // TODO:
 
@@ -90,22 +92,43 @@ export default ({ currentUser }) => {
         </div>
       </div>
 
-      <div className="row">{/* {{> achievements userId=user._id}} */}</div>
+      <div className="mt-6 bg-gray-100 rounded p-4 flex flex-wrap">
+        {user.achievements.map(achievement => (
+          <Tooltip
+            title={`Unlocked on ${dayjs(achievement.createdAt).format(
+              "MMMM D, YYYY"
+            )}`}
+            position="bottom"
+            distance="-3"
+            size="small"
+            key={achievement.type}
+          >
+            <img
+              className="w-25 h-25 m-2"
+              src={`/achievements/${achievement.type}.png`}
+            />
+          </Tooltip>
+        ))}
+      </div>
 
-      <table className="u-full-width">
+      <table className="w-full text-left mt-6">
         <thead>
           <tr>
-            <th>Date</th>
-            <th># words</th>
-            <th>Time</th>
+            <th className="py-2">Date</th>
+            <th className="py-2"># words</th>
+            <th className="py-2">Time</th>
           </tr>
         </thead>
         <tbody>
           {user.words.map(entry => (
-            <tr key={entry._id}>
-              <td>{entry.createdAt}</td>
-              <td>{entry.number_of_words} words</td>
-              <td>{entry.elapsed_time} minutes</td>
+            <tr key={entry._id} className="border-t">
+              <td className="py-2">
+                {dayjs(entry.createdAt).format("ddd, MMM D, YYYY h:mm A")}
+              </td>
+              <td className="py-2">{entry.number_of_words} words</td>
+              <td className="py-2">
+                {Math.round(entry.elapsed_time / (1000 * 60))} minutes
+              </td>
             </tr>
           ))}
         </tbody>
