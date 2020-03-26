@@ -21,7 +21,7 @@ const resolvers = {
 
       return Words.find({
         createdAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) }
-      });
+      }).sort({ createdAt: -1 });
     }
   },
   Mutation: {
@@ -67,7 +67,7 @@ const resolvers = {
   },
   User: {
     words: async (user, args, { models: { Words } }) => {
-      return Words.find({ owner: user._id });
+      return Words.find({ owner: user._id }).sort({ createdAt: -1 });
     },
     achievements: async (user, args, { models: { Achievements } }) => {
       return Achievements.find({ owner: user._id });
@@ -118,9 +118,13 @@ const resolvers = {
             date: '$_id',
             number_of_words: 1
           }
+        },
+        {
+          $sort: {
+            date: 1
+          }
         }
       ]);
-      console.log({ aggregate });
       return aggregate;
     },
     wordsTotal: async (user, args, { models: { Words } }) => {

@@ -3,8 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { Tooltip } from "react-tippy";
 import dayjs from "dayjs";
-
-// TODO:
+import Graph from "../components/Graph";
 
 // hide navbar?
 // hide autoscroll?
@@ -50,37 +49,38 @@ export default ({ currentUser }) => {
   );
 
   if (!user) return null;
+
   return (
     <>
-      <div className="row">
-        <div className="three columns">
-          <div className="profile">
-            <img
-              src={`/avatars/${user.avatar}.png`}
-              className="u-max-full-width"
-            />
-            <h2>
-              {user.username}{" "}
-              <i
-                className="fa fa-check-circle"
-                // style="color: #4B489B; margin-left: 2px;"
-                aria-hidden="true"
-                data-tooltip="Supporting member"
-                data-tooltip-direction="s"
-              ></i>
-            </h2>
-            <hr />
+      <div className="flex">
+        <div className="w-40 mr-3 shadow">
+          <img
+            src={`/avatars/${user.avatar}.png`}
+            className="u-max-full-width"
+          />
+
+          <h2 className="text-lg text-center font-semibold p-2 border-b">
+            {user.username}
+            {/* <i
+              className="fa fa-check-circle"
+              // style="color: #4B489B; margin-left: 2px;"
+              aria-hidden="true"
+              data-tooltip="Supporting member"
+              data-tooltip-direction="s"
+            ></i> */}
+          </h2>
+          <div className="p-2 text-center text-xs uppercase">
             <p>
-              <strong>{user.currentStreak} </strong>day streak
-              <br />
-              Longest streak: {user.longestStreak}
-              <br />
-              <strong>{user.wordsToday} </strong>words today
-              <br />
-              Daily goal: {user.dailygoal}
-              <br />
-              {user.wordsTotal} words total
+              <strong className="text-2xl">{user.currentStreak} </strong>day
+              streak
             </p>
+            <p>Longest streak: {user.longestStreak}</p>
+            <p>
+              <strong className="text-2xl">{user.wordsToday} </strong>words
+              today
+            </p>
+            <p>Daily goal: {user.dailygoal}</p>
+            <p> {user.wordsTotal} words total</p>
           </div>
         </div>
         <div className="flex-grow">

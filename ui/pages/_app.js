@@ -4,6 +4,8 @@ import gql from "graphql-tag";
 import withData from "../utils/apolloClient";
 import { useQuery } from "@apollo/react-hooks";
 import "../styles.css";
+import "react-tippy/dist/tippy.css";
+
 import Layout from "../components/Layout";
 
 export const CURRENT_USER_QUERY = gql`

@@ -3,13 +3,6 @@ import Header from "./Header";
 import Router, { useRouter } from "next/router";
 import cookie from "js-cookie";
 
-// const Container = styled.div`
-//   flex: 0 1 700px;
-//   margin: 0 20px;
-//   padding: 100px 0;
-//   justify-content: stretch;
-// `;
-
 export default ({ children, currentUser, apollo, showHeader }) => {
   const router = useRouter();
 
