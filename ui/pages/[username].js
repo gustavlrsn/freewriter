@@ -83,12 +83,8 @@ export default ({ currentUser }) => {
             </p>
           </div>
         </div>
-        <div className="nine columns">
-          {/* {{#if Template.subscriptionsReady}}
-          {{> chart dailygoal=user.profile.dailygoal}}
-        {{else}}
-          Loading...
-        {{/if}} */}
+        <div className="flex-grow">
+          <Graph wordsPerDay={user.wordsPerDay} />
         </div>
       </div>
 

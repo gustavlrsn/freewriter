@@ -100,7 +100,7 @@ export default ({ currentUser, logOut, showHeader }) => {
                 <Link href="/[username]" as={`/@${currentUser.username}`}>
                   <a
                     className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
-                      router.pathname === "/[username]"
+                      router.query.username === `@${currentUser.username}`
                         ? "border-purple-700 text-gray-800"
                         : "border-transparent text-gray-600"
                     }`}
