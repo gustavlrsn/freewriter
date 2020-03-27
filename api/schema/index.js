@@ -38,6 +38,7 @@ const schema = gql`
     createdAt: Date
     owner: User
     date: String
+    unlocks: [Int]
   }
 
   type Achievements {

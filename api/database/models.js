@@ -53,7 +53,8 @@ const WordsSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  date: String
+  date: String,
+  unlocks: [Number]
 });
 
 const AchievementsSchema = new Schema({
