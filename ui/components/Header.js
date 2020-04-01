@@ -43,12 +43,16 @@ import ProfileDropdown from "./ProfileDropdown";
 //   }
 // `;
 
-export default ({ currentUser, logOut, showHeader }) => {
+export default ({ currentUser, logOut, showHeader, letGo }) => {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const router = useRouter();
 
   return (
-    <header className="border-b border-gray-200">
+    <header
+      className={`border-b border-gray-200 fixed right-0 left-0 z-10 bg-white transition-opacity ease-out duration-200 ${
+        showHeader ? "opacity-100" : "opacity-0"
+      }`}
+    >
       <div className="max-w-screen-md mx-auto sm:flex sm:items-center p-0 sm:px-3 h-16">
         <div className="flex items-center justify-between p-3 sm:p-0">
           <Link href="/">
@@ -57,7 +61,10 @@ export default ({ currentUser, logOut, showHeader }) => {
             </a>
           </Link>
           <div className="sm:hidden flex">
-            <button className="bg-purple-700 text-white rounded px-2 py-1">
+            <button
+              className="bg-purple-700 text-white rounded px-2 py-1"
+              onClick={letGo}
+            >
               Let go
             </button>
             <button
@@ -81,11 +88,11 @@ export default ({ currentUser, logOut, showHeader }) => {
         <nav
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } sm:flex flex-auto justify-between h-full`}
+          } sm:flex flex-auto justify-between h-full bg-white`}
         >
           {currentUser ? (
             <>
-              <div className="px-2 py-3 sm:flex sm:p-0 sm:items-center ">
+              <div className="px-2 py-3 sm:flex sm:p-0 sm:items-center bg-white">
                 <Link href="/">
                   <a
                     className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
@@ -122,7 +129,10 @@ export default ({ currentUser, logOut, showHeader }) => {
               </div>
               <div className="sm:flex items-center">
                 {router.pathname === "/" && (
-                  <button className="bg-purple-700 text-white rounded px-2 py-1 hidden sm:block">
+                  <button
+                    onClick={letGo}
+                    className="bg-purple-700 text-white rounded px-2 py-1 hidden sm:block"
+                  >
                     Let go
                   </button>
                 )}
@@ -132,7 +142,7 @@ export default ({ currentUser, logOut, showHeader }) => {
                 </div>
               </div>
 
-              <div className="py-4 px-4 border-t border-gray-200 sm:hidden">
+              <div className="py-4 px-4 border-t border-gray-200 sm:hidden bg-white border-b">
                 <div className="flex items-center">
                   <img
                     className="h-10 w-10 rounded-full"
