@@ -2,8 +2,16 @@ import Head from "next/head";
 import Header from "./Header";
 import Router, { useRouter } from "next/router";
 import cookie from "js-cookie";
+import ProgressBar from "./ProgressBar";
 
-export default ({ children, currentUser, apollo, showHeader }) => {
+export default ({
+  children,
+  currentUser,
+  apollo,
+  showHeader,
+  letGo,
+  wordCount
+}) => {
   const router = useRouter();
 
   // check for token in query to set it and remove it from url
@@ -33,19 +41,24 @@ export default ({ children, currentUser, apollo, showHeader }) => {
   return (
     <>
       <Head>
-        <title>Freewriter</title>
+        <title>Freewriter {Boolean(wordCount) ? `(${wordCount})` : ""}</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
+      {currentUser && (
+        <ProgressBar wordCount={wordCount} currentUser={currentUser} />
+      )}
+
       <Header
         currentUser={currentUser}
         logOut={logOut}
         showHeader={showHeader}
+        letGo={letGo}
       />
 
-      <div className="max-w-screen-md mx-auto px-3 py-10">{children}</div>
+      <div className="max-w-screen-md mx-auto px-3 pt-24 pb-10">{children}</div>
     </>
   );
 };

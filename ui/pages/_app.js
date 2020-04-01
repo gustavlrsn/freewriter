@@ -14,6 +14,8 @@ export const CURRENT_USER_QUERY = gql`
       _id
       username
       avatar
+      dailygoal
+      wordsToday
     }
   }
 `;
