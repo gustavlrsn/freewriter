@@ -1,7 +1,7 @@
 const { sendMagicLinkEmail } = require('../utils/email');
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const format = require('date-fns/format');
 const subDays = require('date-fns/subDays');
 
@@ -63,6 +63,26 @@ const resolvers = {
       if (name) user.name = name;
 
       return user.save();
+    },
+    letGo: async (
+      parent,
+      { number_of_words, elapsed_time, date },
+      { currentUser, models: { Words, User } }
+    ) => {
+      if (!currentUser) throw new Error('You need to be logged in..');
+
+      // add achievements
+
+      // calculate streak data
+
+      const words = await new Words({
+        _id: mongoose.Types.ObjectId().valueOf(),
+        number_of_words,
+        elapsed_time,
+        date,
+        owner: currentUser._id
+      });
+      return words.save();
     }
   },
   User: {
@@ -80,7 +100,7 @@ const resolvers = {
       const today = format(new Date(), 'yyyy-MM-dd');
 
       const yesterday = format(subDays(new Date(), 1), 'yyyy-MM-dd');
-      console.log({ today, yesterday });
+
       if (
         user.lastCompletedDay === yesterday ||
         user.lastCompletedDay === today

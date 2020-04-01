@@ -11,6 +11,7 @@ const schema = gql`
   type Mutation {
     sendMagicLink(email: String!): Boolean
     updateProfile(name: String): User
+    letGo(number_of_words: Int!, elapsed_time: Int!, date: String!): Words
   }
 
   type User {
