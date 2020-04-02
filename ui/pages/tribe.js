@@ -82,14 +82,14 @@ export default ({ currentUser }) => {
         </div>
         <div>
           <div className="bg-gray-100 rounded px-3 py-4 text-center">
-            <h2 className="text-lg font-semibold mb-2">Monthly challenge</h2>
+            <h2 className="font-semibold mb-2">Monthly challenge</h2>
 
             <img
               src={`/achievements/${dayjs().format("YYMM")}.png`}
               className="h-25 w-25 mb-2 mx-auto"
             />
 
-            <p>
+            <p className="text-sm text-gray-800">
               Hit your daily goal for every day of {dayjs().format("MMMM")} to
               unlock this badge!
             </p>
