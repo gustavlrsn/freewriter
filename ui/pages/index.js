@@ -1,19 +1,33 @@
 import TextareaAutosize from "react-textarea-autosize";
+import dayjs from "dayjs";
 
-// TODO:
-// hide navbar?
-// hide autoscroll?
-
-export default ({ currentUser, fadeHeader }) => {
+export default ({
+  currentUser,
+  fadeHeader,
+  writings,
+  setWritings,
+  wordCount,
+  setStartTime
+}) => {
   const onKeyDown = e => {
-    console.log({ e });
-    console.log("fade header if not already faded.");
-    fadeHeader();
+    const isScrolledToBottom =
+      document.body.scrollHeight - window.innerHeight <=
+      document.documentElement.scrollTop + 30;
+    if (isScrolledToBottom) document.documentElement.scrollTop = 10000000;
+    if (e.key !== "Tab") fadeHeader();
   };
+
   return (
-    <div className="text">
+    <div className="">
       <TextareaAutosize
         onKeyDown={onKeyDown}
+        value={writings}
+        onChange={e => {
+          if (writings.length === 0 && e.target.value.length) {
+            setStartTime(dayjs());
+          }
+          setWritings(e.target.value);
+        }}
         placeholder="Write it out..."
         autoFocus
         className="writearea"
@@ -24,7 +38,6 @@ export default ({ currentUser, fadeHeader }) => {
           resize: none;
           border: 1px solid rgba(255, 255, 255, 0);
           outline: none;
-          /* color: #000; */
           background: rgba(0, 0, 0, 0);
           width: 100%;
           text-align: left;
@@ -35,9 +48,11 @@ export default ({ currentUser, fadeHeader }) => {
           /* overflow:hidden !important; */
           display: inline-block;
           min-height: 300px;
-          z-index: 0;
         }
       `}</style>
+      <div className="right-0 bottom-0 p-4 fixed text-sm text-gray-500">
+        {wordCount}
+      </div>
     </div>
   );
 };

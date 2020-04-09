@@ -1,49 +1,57 @@
 import Link from "next/link";
-import Router, { useRouter } from "next/router";
-import cookie from "js-cookie";
-
+import { useRouter } from "next/router";
+import { Tooltip } from "react-tippy";
+import {
+  Save as SaveIcon,
+  Expand as ExpandIcon,
+  Copy as CopyIcon
+} from "./Icons";
 import ProfileDropdown from "./ProfileDropdown";
+import toggleFullscreen from "../utils/toggleFullscreen";
+const WriteActions = ({ letGo, saveAsTxt, copyToClipboard }) => {
+  const css = {
+    iconButton:
+      "px-1 py-2 text-gray-500 hover:text-gray-700 focus:outline-none focus:shadow-outline rounded"
+  };
 
-// const Header = styled.div`
-//   padding: 15px 0;
-//   display: flex;
-//   /* justify-content: space-between;
-//   align-items: center; */
-//   position: fixed;
-//   left: 0px;
-//   right: 0px;
-//   top: 0px;
-//   background: rgba(255, 255, 255, 0.95);
-//   border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-//   /* visibility: hidden; */
-//   transition: opacity 100ms;
-//   z-index: 50;
-//   &.show {
-//     opacity: 1;
-//   }
-//   &.hide {
-//     opacity: 0;
-//   }
-//   a.logo {
-//     text-decoration: none;
-//     color: rgba(0, 0, 0, 0.8);
-//     h1 {
-//       font-size: 24px;
-//       margin: 0;
-//     }
-//   }
-// `;
+  return (
+    <>
+      <Tooltip title="Toggle fullscreen" size="small">
+        <button onClick={toggleFullscreen} className={css.iconButton}>
+          <ExpandIcon className="h-6 w-6" />
+        </button>
+      </Tooltip>
+      <Tooltip title="Copy to clipboard" size="small">
+        <button onClick={copyToClipboard} className={css.iconButton}>
+          <CopyIcon className="h-6 w-6" />
+        </button>
+      </Tooltip>
+      <Tooltip title="Save .txt" size="small">
+        <button onClick={saveAsTxt} className={css.iconButton}>
+          <SaveIcon className="h-6 w-6" />
+        </button>
+      </Tooltip>
 
-// const Nav = styled.nav`
-//   display: flex;
-//   align-items: center;
+      <Tooltip title="Erase text but save progress" size="small">
+        <button
+          onClick={letGo}
+          className="ml-2 border text-sm border-purple-700 text-purple-700 hover:text-white hover:bg-purple-700 rounded px-3 py-2 rounded-full focus:outline-none focus:shadow-outline"
+        >
+          Let it go
+        </button>
+      </Tooltip>
+    </>
+  );
+};
 
-//   > div {
-//     margin-left: 20px;
-//   }
-// `;
-
-export default ({ currentUser, logOut, showHeader, letGo }) => {
+export default ({
+  currentUser,
+  logOut,
+  showHeader,
+  letGo,
+  saveAsTxt,
+  copyToClipboard
+}) => {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const router = useRouter();
 
@@ -61,12 +69,11 @@ export default ({ currentUser, logOut, showHeader, letGo }) => {
             </a>
           </Link>
           <div className="sm:hidden flex">
-            <button
-              className="bg-purple-700 text-white rounded px-2 py-1"
-              onClick={letGo}
-            >
-              Let go
-            </button>
+            <WriteActions
+              letGo={letGo}
+              saveAsTxt={saveAsTxt}
+              copyToClipboard={copyToClipboard}
+            />
             <button
               onClick={() => setMenuOpen(!isMenuOpen)}
               type="button"
@@ -127,17 +134,16 @@ export default ({ currentUser, logOut, showHeader, letGo }) => {
                   </a>
                 </Link>
               </div>
-              <div className="sm:flex items-center">
+              <div className="hidden sm:flex items-center">
                 {router.pathname === "/" && (
-                  <button
-                    onClick={letGo}
-                    className="bg-purple-700 text-white rounded px-2 py-1 hidden sm:block"
-                  >
-                    Let go
-                  </button>
+                  <WriteActions
+                    letGo={letGo}
+                    saveAsTxt={saveAsTxt}
+                    copyToClipboard={copyToClipboard}
+                  />
                 )}
 
-                <div className="hidden sm:block sm:ml-4">
+                <div className="ml-4">
                   <ProfileDropdown currentUser={currentUser} logOut={logOut} />
                 </div>
               </div>

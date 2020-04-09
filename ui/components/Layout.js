@@ -10,6 +10,8 @@ export default ({
   apollo,
   showHeader,
   letGo,
+  saveAsTxt,
+  copyToClipboard,
   wordCount
 }) => {
   const router = useRouter();
@@ -56,6 +58,8 @@ export default ({
         logOut={logOut}
         showHeader={showHeader}
         letGo={letGo}
+        saveAsTxt={saveAsTxt}
+        copyToClipboard={copyToClipboard}
       />
 
       <div className="max-w-screen-md mx-auto px-3 pt-24 pb-10">{children}</div>

@@ -20,7 +20,7 @@ const ProfileDropdown = ({ currentUser, logOut }) => {
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="z-20 relative block h-10 w-10 rounded-full overflow-hidden focus:outline-none"
+        className="z-20 relative block h-10 w-10 rounded-full overflow-hidden focus:outline-none focus:shadow-outline"
       >
         <img
           className="h-full w-full"
@@ -39,20 +39,20 @@ const ProfileDropdown = ({ currentUser, logOut }) => {
           <div className="z-20 absolute right-0 w-48 mt-2 p-2 bg-white rounded-lg shadow-xl">
             <a
               href="#"
-              className="block px-2 py-1 text-gray-800 hover:bg-gray-200 rounded-lg"
+              className="block px-2 py-1 text-gray-800 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
             >
               Edit profile
             </a>
             <a
               href="#"
-              className="block px-2 py-1 text-gray-800 hover:bg-gray-200 rounded-lg"
+              className="block px-2 py-1 text-gray-800 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
             >
               Manage subscription
             </a>
             <a
               href="#"
               onClick={logOut}
-              className="block px-2 py-1 text-gray-500 hover:bg-gray-200 rounded-lg flex-auto"
+              className="block px-2 py-1 text-gray-500 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
             >
               Sign out
             </a>
