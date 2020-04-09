@@ -2,8 +2,7 @@ const { sendMagicLinkEmail } = require('../utils/email');
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 const mongoose = require('mongoose');
-const format = require('date-fns/format');
-const subDays = require('date-fns/subDays');
+const dayjs = require('dayjs');
 
 const resolvers = {
   Query: {
@@ -67,20 +66,122 @@ const resolvers = {
     letGo: async (
       parent,
       { number_of_words, elapsed_time, date },
-      { currentUser, models: { Words, User } }
+      { currentUser, models: { Words } }
     ) => {
       if (!currentUser) throw new Error('You need to be logged in..');
 
-      // add achievements
+      let newstreak = 0;
 
-      // calculate streak data
+      const unlocks = [];
+
+
+      const [{ wordsToday } = { wordsToday: 0 }] = await Words.aggregate([
+        { $match: { date, owner: currentUser._id } },
+        { $group: { _id: null, wordsToday: { $sum: '$number_of_words' } } }
+      ]);
+
+      const totalWordsToday = number_of_words + wordsToday;
+
+      const [{ wordsTotal } = { wordsTotal: 0 }] = await Words.aggregate([
+        { $match: { owner: currentUser._id } },
+        { $group: { _id: null, wordsTotal: { $sum: '$number_of_words' } } }
+      ]);
+
+      const totalWords = number_of_words + wordsTotal;
+
+      const yesterday = dayjs(date)
+        .substract(1, 'day')
+        .format('YYYY-MM-DD');
+      const lastdayofmonth = dayjs(date)
+        .endOf('month')
+        .format('YYYY-MM-DD');
+      const daysinmonth = dayjs(date).daysInMonth();
+      const month = Number(dayjs(date).format('YYMM'));
+
+      if (currentUser.lastCompletedDay === yesterday) {
+        if (totalWordsToday >= currentUser.profile.dailygoal) {
+          newstreak = currentUser.streak + 1;
+          currentUser.streak = newstreak;
+          currentUser.lastCompletedDay = today;
+        }
+      } else if (currentUser.lastCompletedDay === today) {
+        // dont do anything right?
+      } else {
+        if (totalWordsToday >= currentUser.profile.dailygoal) {
+          newstreak = 1;
+          currentUser.lastCompletedDay = today;
+          currentUser.streak = newstreak;
+        } else {
+          currentUser.streak = newstreak; // = 0
+        }
+      }
+
+      // SET LONGEST STREAK
+      if (!currentUser.longestStreak || newstreak > currentUser.longestStreak) {
+        currentUser.longestStreak = newstreak;
+      }
+
+      // DAILY STREAK ACHIEVEMENTS
+      var achievementsObj = await Achievements.find({ owner: currentUser._id });
+      var currentAchievements = achievementsObj.map(function(a) {
+        return a.type;
+      });
+      var possibleAchievements = [1, 3, 7, 14, 30, 50, 100, 365, 500, 1000];
+
+      if (
+        newstreak &&
+        possibleAchievements.includes(newstreak) &&
+        !currentAchievements.includes(newstreak)
+      ) {
+        await new Achievements({
+          _id: mongoose.Types.ObjectId.valueOf(),
+          type: newstreak,
+          owner: currentUser._id
+        }).save();
+
+        unlocks.push(newstreak);
+      }
+
+      /// MONTHLY ACHIEVEMENTS
+
+      if (today == lastdayofmonth && newstreak >= daysinmonth) {
+        await new Achievements({
+          _id: mongoose.Types.ObjectId.valueOf(),
+          type: month,
+          owner: currentUser._id
+        }).save();
+        unlocks.push(month);
+      }
+
+      // TOTAL WORD ACHIEVEMENTS
+      var wordsAchievements = [10000, 50000, 100000, 250000, 500000, 1000000];
+
+      for (i = 0; i < wordsAchievements.length; i++) {
+        if (totalWords < wordsAchievements[i]) {
+          break;
+        }
+        if (
+          totalWords >= wordsAchievements[i] &&
+          !currentAchievements.includes(wordsAchievements[i])
+        ) {
+          await new Achievements({
+            _id: mongoose.Types.ObjectId.valueOf(),
+            type: wordsAchievements[i],
+            owner: currentUser._id
+          }).save();
+          unlocks.push(wordsAchievements[i]);
+        }
+      }
+
+      await currentUser.save();
 
       const words = await new Words({
         _id: mongoose.Types.ObjectId().valueOf(),
         number_of_words,
         elapsed_time,
         date,
-        owner: currentUser._id
+        owner: currentUser._id,
+        unlocks
       });
       return words.save();
     }
@@ -97,9 +198,11 @@ const resolvers = {
     avatar: user => user.profile.avatar,
     currentStreak: user => {
       // user.lastCompletedDay,
-      const today = format(new Date(), 'yyyy-MM-dd');
+      const today = dayjs().format('YYYY-MM-DD');
 
-      const yesterday = format(subDays(new Date(), 1), 'yyyy-MM-dd');
+      const yesterday = dayjs()
+        .subtract(1, 'day')
+        .format('YYYY-MM-DD');
 
       if (
         user.lastCompletedDay === yesterday ||
@@ -112,7 +215,8 @@ const resolvers = {
     },
     wordsToday: async (user, args, { models: { Words } }) => {
       // this will be in servers timezone.. hmm.
-      const today = format(new Date(), 'yyyy-MM-dd');
+      const today = dayjs().format('YYYY-MM-DD');
+
       const [{ wordsToday } = { wordsToday: 0 }] = await Words.aggregate([
         { $match: { date: today, owner: user._id } },
         { $group: { _id: null, wordsToday: { $sum: '$number_of_words' } } }
