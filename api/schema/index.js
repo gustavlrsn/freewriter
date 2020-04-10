@@ -40,6 +40,7 @@ const schema = gql`
     owner: User
     date: String
     unlocks: [Int]
+    new_streak: Int
   }
 
   type Achievements {

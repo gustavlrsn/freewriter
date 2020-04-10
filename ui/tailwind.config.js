@@ -9,9 +9,19 @@ module.exports = {
       },
       backgroundColor: {
         "white-transparent": "rgba(255,255,255,0.75)"
+      },
+      animationDuration: {
+        "200ms": "200ms"
+      }
+    },
+    animations: {
+      "fade-in": {
+        from: {
+          opacity: 0
+        }
       }
     }
   },
   variants: {},
-  plugins: []
+  plugins: [require("tailwindcss-animations")]
 };

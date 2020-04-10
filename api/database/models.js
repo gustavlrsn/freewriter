@@ -36,7 +36,8 @@ const UserSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  timezone: String
 });
 
 const WordsSchema = new Schema({
@@ -54,7 +55,8 @@ const WordsSchema = new Schema({
     default: Date.now
   },
   date: String,
-  unlocks: [Number]
+  unlocks: [Number],
+  new_streak: Number
 });
 
 const AchievementsSchema = new Schema({

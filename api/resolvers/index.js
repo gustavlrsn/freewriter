@@ -66,14 +66,13 @@ const resolvers = {
     letGo: async (
       parent,
       { number_of_words, elapsed_time, date },
-      { currentUser, models: { Words } }
+      { currentUser, models: { Words, Achievements } }
     ) => {
       if (!currentUser) throw new Error('You need to be logged in..');
 
-      let newstreak = 0;
+      let new_streak = 0;
 
       const unlocks = [];
-
 
       const [{ wordsToday } = { wordsToday: 0 }] = await Words.aggregate([
         { $match: { date, owner: currentUser._id } },
@@ -88,9 +87,9 @@ const resolvers = {
       ]);
 
       const totalWords = number_of_words + wordsTotal;
-
+      const today = date;
       const yesterday = dayjs(date)
-        .substract(1, 'day')
+        .subtract(1, 'day')
         .format('YYYY-MM-DD');
       const lastdayofmonth = dayjs(date)
         .endOf('month')
@@ -100,25 +99,28 @@ const resolvers = {
 
       if (currentUser.lastCompletedDay === yesterday) {
         if (totalWordsToday >= currentUser.profile.dailygoal) {
-          newstreak = currentUser.streak + 1;
-          currentUser.streak = newstreak;
+          new_streak = currentUser.streak + 1;
+          currentUser.streak = new_streak;
           currentUser.lastCompletedDay = today;
         }
       } else if (currentUser.lastCompletedDay === today) {
         // dont do anything right?
       } else {
         if (totalWordsToday >= currentUser.profile.dailygoal) {
-          newstreak = 1;
+          new_streak = 1;
           currentUser.lastCompletedDay = today;
-          currentUser.streak = newstreak;
+          currentUser.streak = new_streak;
         } else {
-          currentUser.streak = newstreak; // = 0
+          currentUser.streak = new_streak; // = 0
         }
       }
 
       // SET LONGEST STREAK
-      if (!currentUser.longestStreak || newstreak > currentUser.longestStreak) {
-        currentUser.longestStreak = newstreak;
+      if (
+        !currentUser.longestStreak ||
+        new_streak > currentUser.longestStreak
+      ) {
+        currentUser.longestStreak = new_streak;
       }
 
       // DAILY STREAK ACHIEVEMENTS
@@ -126,25 +128,29 @@ const resolvers = {
       var currentAchievements = achievementsObj.map(function(a) {
         return a.type;
       });
-      var possibleAchievements = [1, 3, 7, 14, 30, 50, 100, 365, 500, 1000];
+      var dailyStreakAchievements = [1, 3, 7, 14, 30, 50, 100, 365, 500, 1000];
 
       if (
-        newstreak &&
-        possibleAchievements.includes(newstreak) &&
-        !currentAchievements.includes(newstreak)
+        new_streak &&
+        dailyStreakAchievements.includes(new_streak) &&
+        !currentAchievements.includes(new_streak)
       ) {
         await new Achievements({
           _id: mongoose.Types.ObjectId.valueOf(),
-          type: newstreak,
+          type: new_streak,
           owner: currentUser._id
         }).save();
 
-        unlocks.push(newstreak);
+        unlocks.push(new_streak);
       }
 
       /// MONTHLY ACHIEVEMENTS
 
-      if (today == lastdayofmonth && newstreak >= daysinmonth) {
+      if (
+        today == lastdayofmonth &&
+        new_streak >= daysinmonth &&
+        !currentAchievements.includes(month)
+      ) {
         await new Achievements({
           _id: mongoose.Types.ObjectId.valueOf(),
           type: month,
@@ -181,7 +187,8 @@ const resolvers = {
         elapsed_time,
         date,
         owner: currentUser._id,
-        unlocks
+        unlocks,
+        new_streak: currentUser.streak
       });
       return words.save();
     }
@@ -198,9 +205,13 @@ const resolvers = {
     avatar: user => user.profile.avatar,
     currentStreak: user => {
       // user.lastCompletedDay,
-      const today = dayjs().format('YYYY-MM-DD');
+      const today = dayjs(
+        new Date().toLocaleString('en-US', {
+          timeZone: user.timezone ? user.timezone : 'Europe/London'
+        })
+      ).format('YYYY-MM-DD');
 
-      const yesterday = dayjs()
+      const yesterday = dayjs(today)
         .subtract(1, 'day')
         .format('YYYY-MM-DD');
 
@@ -215,7 +226,14 @@ const resolvers = {
     },
     wordsToday: async (user, args, { models: { Words } }) => {
       // this will be in servers timezone.. hmm.
-      const today = dayjs().format('YYYY-MM-DD');
+      const today = dayjs(
+        new Date().toLocaleString('en-US', {
+          timeZone: user.timezone ? user.timezone : 'Europe/London'
+        })
+      ).format('YYYY-MM-DD');
+
+      const regular = dayjs().format('YYYY-MM-DD');
+      console.log({ today, regular });
 
       const [{ wordsToday } = { wordsToday: 0 }] = await Words.aggregate([
         { $match: { date: today, owner: user._id } },

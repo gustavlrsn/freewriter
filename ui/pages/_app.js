@@ -12,8 +12,9 @@ import saveAsTxt from "../utils/saveAsTxt";
 import "../styles.css";
 import "react-tippy/dist/tippy.css";
 
+import { modals, Modal } from "../components/Modal";
 import Layout from "../components/Layout";
-import { Router } from "next/router";
+import Router from "next/router";
 
 export const CURRENT_USER_QUERY = gql`
   query currentUser {
@@ -34,12 +35,18 @@ const LET_GO_MUTATION = gql`
       elapsed_time: $elapsed_time
       date: $date
     ) {
-      number_of_words
       _id
+      number_of_words
       elapsed_time
+      unlocks
+      new_streak
     }
   }
 `;
+
+Router.events.on("routeChangeComplete", () => {
+  window.scrollTo(0, 0);
+});
 
 const MyApp = ({ Component, pageProps, apollo }) => {
   let currentUser;
@@ -52,37 +59,34 @@ const MyApp = ({ Component, pageProps, apollo }) => {
   }
   const [letGoMutation] = useMutation(LET_GO_MUTATION, { client: apollo });
 
-  const [modal, setModal] = useState(null);
-
-  const openModal = name => {
-    if (modal !== name) setModal(name);
-  };
-
-  const closeModal = () => {
-    setModal(null);
-  };
-
-  const [writing, setWriting] = useState(false);
-  const [writings, setWritings] = useState("");
-
-  const beforeUnload = e => {
-    console.log(writings);
-    //e.preventDefault();
-    if (writings.length) {
-      e.preventDefault();
-      return "You have written something that has not been added to your stats yet.";
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("beforeunload", beforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", beforeUnload);
-    };
+  const [currentModal, setCurrentModal] = useState({
+    type: modals.WELCOME_AND_SET_TIMEZONE
   });
 
+  const openModal = modal => {
+    setCurrentModal(modal);
+  };
+
+  const [writing, setWriting] = useState(false); //rename this fgs
+  const [writings, setWritings] = useState("");
   const [startTime, setStartTime] = useState(null);
+
+  // const beforeUnload = e => {
+  //   console.log(writings);
+  //   //e.preventDefault();
+  //   if (writings.length) {
+  //     e.preventDefault();
+  //     return "You have written something that has not been added to your stats yet.";
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", beforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", beforeUnload);
+  //   };
+  // });
 
   const wordCount = countWords(writings);
 
@@ -93,10 +97,20 @@ const MyApp = ({ Component, pageProps, apollo }) => {
     letGoMutation({
       variables: { number_of_words: wordCount, elapsed_time, date }
     })
-      .then(data => {
-        console.log({ data });
-        // Router.push('/[username]', `/@${currentUser.username}`);
-        // // pop modal..
+      .then(({ data }) => {
+        Router.push("/[username]", `/@${currentUser.username}`);
+
+        openModal({
+          type: modals.FINISHED_WRITING,
+          props: {
+            number_of_words: data.letGo.number_of_words,
+            unlocks: data.letGo.unlocks,
+            elapsed_time: data.letGo.elapsed_time,
+            new_streak: data.letGo.new_streak
+          }
+        });
+        setWritings("");
+        setStartTime(null);
       })
       .catch(err => alert(err.message));
   };
@@ -126,12 +140,10 @@ const MyApp = ({ Component, pageProps, apollo }) => {
             wordCount={wordCount}
             fadeHeader={() => setWriting(true)}
             setStartTime={setStartTime}
-            onScrolledTop={e =>
-              console.log("scrolled top")
-            } /* add props to be intercepted by autoscroll */
-            onScrolled={e => console.log("the list was scrolled")}
           />
         </Layout>
+
+        <Modal modal={currentModal} onClose={() => setCurrentModal(null)} />
       </ApolloProvider>
     </div>
   );
