@@ -4,14 +4,16 @@ import { Tooltip } from "react-tippy";
 import {
   Save as SaveIcon,
   Expand as ExpandIcon,
-  Copy as CopyIcon
+  Copy as CopyIcon,
+  FreewriterLogo,
 } from "./Icons";
 import ProfileDropdown from "./ProfileDropdown";
 import toggleFullscreen from "../utils/toggleFullscreen";
+
 const WriteActions = ({ letGo, saveAsTxt, copyToClipboard }) => {
   const css = {
     iconButton:
-      "px-1 py-2 text-gray-500 hover:text-gray-700 focus:outline-none focus:shadow-outline rounded"
+      "px-1 py-2 text-gray-500 hover:text-gray-700 focus:outline-none focus:shadow-outline rounded",
   };
 
   return (
@@ -35,7 +37,7 @@ const WriteActions = ({ letGo, saveAsTxt, copyToClipboard }) => {
       <Tooltip title="Erase text but save progress" size="small">
         <button
           onClick={letGo}
-          className="ml-2 border text-sm border-purple-700 text-purple-700 hover:text-white hover:bg-purple-700 rounded px-3 py-2 rounded-full focus:outline-none focus:shadow-outline"
+          className="ml-2 border text-sm border-indigo-darker text-indigo-darker hover:text-white hover:bg-indigo-darker transition-colors duration-100 rounded px-3 py-2 rounded-full focus:outline-none focus:shadow-outline"
         >
           Let it go
         </button>
@@ -50,7 +52,7 @@ export default ({
   showHeader,
   letGo,
   saveAsTxt,
-  copyToClipboard
+  copyToClipboard,
 }) => {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const router = useRouter();
@@ -104,7 +106,7 @@ export default ({
                   <a
                     className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
                       router.pathname === "/"
-                        ? "border-purple-700 text-gray-800"
+                        ? "border-indigo-darker text-gray-800"
                         : "border-transparent text-gray-600"
                     }`}
                   >
@@ -115,7 +117,7 @@ export default ({
                   <a
                     className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
                       router.query.username === `@${currentUser.username}`
-                        ? "border-purple-700 text-gray-800"
+                        ? "border-indigo-darker text-gray-800"
                         : "border-transparent text-gray-600"
                     }`}
                   >
@@ -126,7 +128,7 @@ export default ({
                   <a
                     className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
                       router.pathname === "/tribe"
-                        ? "border-purple-700 text-gray-800"
+                        ? "border-indigo-darker text-gray-800"
                         : "border-transparent text-gray-600"
                     }`}
                   >

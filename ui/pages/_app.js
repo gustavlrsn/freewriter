@@ -24,6 +24,7 @@ export const CURRENT_USER_QUERY = gql`
       avatar
       dailygoal
       wordsToday
+      timezone
     }
   }
 `;
@@ -60,9 +61,7 @@ const MyApp = ({ Component, pageProps, apolloClient }) => {
     client: apolloClient,
   });
 
-  const [currentModal, setCurrentModal] = useState({
-    type: modals.WELCOME_AND_SET_TIMEZONE,
-  });
+  const [currentModal, setCurrentModal] = useState(null);
 
   const openModal = (modal) => {
     setCurrentModal(modal);
@@ -72,6 +71,13 @@ const MyApp = ({ Component, pageProps, apolloClient }) => {
   const [writings, setWritings] = useState("");
   const [startTime, setStartTime] = useState(null);
 
+  useEffect(() => {
+    if (currentUser && !currentUser.timezone)
+      openModal({
+        type: modals.WELCOME_AND_SET_TIMEZONE,
+        hideCloseButton: true,
+      });
+  }, []);
   // const beforeUnload = e => {
   //   console.log(writings);
   //   //e.preventDefault();
@@ -143,6 +149,7 @@ const MyApp = ({ Component, pageProps, apolloClient }) => {
         />
       </Layout>
 
+      <Modal modal={currentModal} closeModal={() => setCurrentModal(null)} />
     </div>
   );
 };

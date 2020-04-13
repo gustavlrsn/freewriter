@@ -30,6 +30,7 @@ const schema = gql`
     wordsPerDay: [Words]
     words: [Words]
     achievements: [Achievements]
+    timezone: String
   }
 
   type Words {
