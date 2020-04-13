@@ -67,7 +67,10 @@ export default ({
         <div className="flex items-center justify-between p-3 sm:p-0">
           <Link href="/">
             <a>
-              <img className="h-10" src="/img/logo.png" alt="Freewriter" />
+              <FreewriterLogo
+                className="h-10 w-10 text-gray-600"
+                alt="Freewriter"
+              />
             </a>
           </Link>
           <div className="sm:hidden flex">
