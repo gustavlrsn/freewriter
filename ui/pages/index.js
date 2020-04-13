@@ -33,7 +33,15 @@ export default ({
         className="writearea"
       />
       <style jsx global>{`
+        @font-face {
+          font-family: "Inconsolata";
+          src: url("/fonts/Inconsolata-Regular.ttf");
+          font-weight: regular;
+          font-style: normal;
+          font-display: swap;
+        }
         .writearea {
+          font-family: Inconsolata, sans-serif;
           position: relative;
           resize: none;
           border: 1px solid rgba(255, 255, 255, 0);

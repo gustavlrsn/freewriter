@@ -48,6 +48,12 @@ export default ({
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
+        <link
+          rel="preload"
+          href="/fonts/Inconsolata-Regular.ttf"
+          as="font"
+          crossOrigin=""
+        />
       </Head>
       {currentUser && (
         <ProgressBar wordCount={wordCount} currentUser={currentUser} />

@@ -4,6 +4,6 @@
 
 @tailwind utilities;
 
-* {
+/* * {
   @apply antialiased;
-}
+} */
