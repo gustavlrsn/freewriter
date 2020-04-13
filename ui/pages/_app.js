@@ -5,7 +5,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import dayjs from "dayjs";
 import copy from "copy-to-clipboard";
 
-import withData from "../utils/apolloClient";
+import { withApollo } from "../lib/apollo";
 import countWords from "../utils/countWords";
 import saveAsTxt from "../utils/saveAsTxt";
 
@@ -48,26 +48,27 @@ Router.events.on("routeChangeComplete", () => {
   window.scrollTo(0, 0);
 });
 
-const MyApp = ({ Component, pageProps, apollo }) => {
+const MyApp = ({ Component, pageProps, apolloClient }) => {
   let currentUser;
 
-  const { data } = useQuery(CURRENT_USER_QUERY, {
-    client: apollo
-  });
+  const { data } = useQuery(CURRENT_USER_QUERY, { client: apolloClient });
   if (data) {
     currentUser = data.currentUser;
   }
-  const [letGoMutation] = useMutation(LET_GO_MUTATION, { client: apollo });
 
-  const [currentModal, setCurrentModal] = useState({
-    type: modals.WELCOME_AND_SET_TIMEZONE
+  const [letGoMutation] = useMutation(LET_GO_MUTATION, {
+    client: apolloClient,
   });
 
-  const openModal = modal => {
+  const [currentModal, setCurrentModal] = useState({
+    type: modals.WELCOME_AND_SET_TIMEZONE,
+  });
+
+  const openModal = (modal) => {
     setCurrentModal(modal);
   };
 
-  const [writing, setWriting] = useState(false); //rename this fgs
+  const [showHeader, setShowHeader] = useState(true); //rename this fgs
   const [writings, setWritings] = useState("");
   const [startTime, setStartTime] = useState(null);
 
@@ -95,7 +96,7 @@ const MyApp = ({ Component, pageProps, apollo }) => {
     const elapsed_time = endTime.valueOf() - startTime.valueOf();
     const date = endTime.format("YYYY-MM-DD");
     letGoMutation({
-      variables: { number_of_words: wordCount, elapsed_time, date }
+      variables: { number_of_words: wordCount, elapsed_time, date },
     })
       .then(({ data }) => {
         Router.push("/[username]", `/@${currentUser.username}`);
@@ -106,57 +107,44 @@ const MyApp = ({ Component, pageProps, apollo }) => {
             number_of_words: data.letGo.number_of_words,
             unlocks: data.letGo.unlocks,
             elapsed_time: data.letGo.elapsed_time,
-            new_streak: data.letGo.new_streak
-          }
+            new_streak: data.letGo.new_streak,
+          },
         });
         setWritings("");
         setStartTime(null);
       })
-      .catch(err => alert(err.message));
+      .catch((err) => alert(err.message));
   };
 
   return (
-    <div onMouseMove={() => setWriting(false)}>
-      <ApolloProvider client={apollo}>
-        <Layout
+    <div onMouseMove={() => setShowHeader(true)}>
+      <Layout
+        currentUser={currentUser}
+        apollo={apolloClient}
+        showHeader={showHeader}
+        letGo={letGo}
+        saveAsTxt={() => saveAsTxt(writings)}
+        copyToClipboard={() =>
+          copy(writings, {
+            message: "Press #{key} to copy",
+            format: "text/plain",
+          })
+        }
+        wordCount={wordCount}
+      >
+        <Component
+          {...pageProps}
+          writings={writings}
+          setWritings={setWritings}
           currentUser={currentUser}
-          apollo={apollo}
-          showHeader={!writing}
-          letGo={letGo}
-          saveAsTxt={() => saveAsTxt(writings)}
-          copyToClipboard={() =>
-            copy(writings, {
-              message: "Press #{key} to copy",
-              format: "text/plain"
-            })
-          }
           wordCount={wordCount}
-        >
-          <Component
-            {...pageProps}
-            writings={writings}
-            setWritings={setWritings}
-            currentUser={currentUser}
-            wordCount={wordCount}
-            fadeHeader={() => setWriting(true)}
-            setStartTime={setStartTime}
-          />
-        </Layout>
+          fadeHeader={() => setShowHeader(false)}
+          setStartTime={setStartTime}
+        />
+      </Layout>
 
-        <Modal modal={currentModal} onClose={() => setCurrentModal(null)} />
-      </ApolloProvider>
     </div>
   );
 };
 
-MyApp.getInitialProps = async ({ Component, ctx }) => {
-  let pageProps = {};
-
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx);
-  }
-
-  return { pageProps };
-};
-
-export default withData(MyApp);
+export default withApollo({ ssr: true })(MyApp);
