@@ -2,8 +2,20 @@
 
 @tailwind components;
 
-@tailwind utilities;
+.btn {
+  @apply text-white bg-indigo transition-colors duration-100 rounded-md px-4 py-2;
+}
 
-/* * {
-  @apply antialiased;
-} */
+.btn:hover {
+  @apply bg-indigo-darker;
+}
+
+.btn:focus {
+  @apply outline-none shadow-outline;
+}
+
+input[type="radio"]:checked + label img {
+  @apply opacity-100 shadow-outline;
+}
+
+@tailwind utilities;

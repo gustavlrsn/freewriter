@@ -9,6 +9,7 @@ import {
 } from "./Icons";
 import ProfileDropdown from "./ProfileDropdown";
 import toggleFullscreen from "../utils/toggleFullscreen";
+import { modals } from "./Modal";
 
 const WriteActions = ({ letGo, saveAsTxt, copyToClipboard }) => {
   const css = {
@@ -18,23 +19,23 @@ const WriteActions = ({ letGo, saveAsTxt, copyToClipboard }) => {
 
   return (
     <>
-      <Tooltip title="Toggle fullscreen" size="small">
+      <Tooltip title="Toggle fullscreen" size="small" delay={25}>
         <button onClick={toggleFullscreen} className={css.iconButton}>
           <ExpandIcon className="h-6 w-6" />
         </button>
       </Tooltip>
-      <Tooltip title="Copy to clipboard" size="small">
+      <Tooltip title="Copy to clipboard" size="small" delay={25}>
         <button onClick={copyToClipboard} className={css.iconButton}>
           <CopyIcon className="h-6 w-6" />
         </button>
       </Tooltip>
-      <Tooltip title="Save .txt" size="small">
+      <Tooltip title="Save .txt" size="small" delay={25}>
         <button onClick={saveAsTxt} className={css.iconButton}>
           <SaveIcon className="h-6 w-6" />
         </button>
       </Tooltip>
 
-      <Tooltip title="Erase text but save progress" size="small">
+      <Tooltip title="Erase text but save progress" size="small" delay={25}>
         <button
           onClick={letGo}
           className="ml-2 border text-sm border-indigo-darker text-indigo-darker hover:text-white hover:bg-indigo-darker transition-colors duration-100 rounded px-3 py-2 rounded-full focus:outline-none focus:shadow-outline"
@@ -53,6 +54,7 @@ export default ({
   letGo,
   saveAsTxt,
   copyToClipboard,
+  openModal,
 }) => {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const router = useRouter();
@@ -149,7 +151,11 @@ export default ({
                 )}
 
                 <div className="ml-4">
-                  <ProfileDropdown currentUser={currentUser} logOut={logOut} />
+                  <ProfileDropdown
+                    currentUser={currentUser}
+                    logOut={logOut}
+                    openModal={openModal}
+                  />
                 </div>
               </div>
 
@@ -166,25 +172,28 @@ export default ({
                 </div>
 
                 <div className="mt-4">
-                  <a
-                    href="#"
+                  <button
+                    onClick={() => {
+                      openModal({
+                        type: modals.EDIT_PROFILE,
+                      });
+                    }}
                     className="mt-2 block text-gray-600 hover:text-gray-900"
                   >
                     Edit profile
-                  </a>
+                  </button>
                   <a
                     href="#"
                     className="mt-2 block text-gray-600 hover:text-gray-900"
                   >
                     Manage subscription
                   </a>
-                  <a
-                    href="#"
+                  <button
                     onClick={logOut}
                     className="mt-2 block text-gray-600 hover:text-gray-900"
                   >
                     Sign out
-                  </a>
+                  </button>
                 </div>
               </div>
             </>

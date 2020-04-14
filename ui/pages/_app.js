@@ -25,6 +25,8 @@ export const CURRENT_USER_QUERY = gql`
       dailygoal
       wordsToday
       timezone
+      email
+      emailVerified
     }
   }
 `;
@@ -124,6 +126,11 @@ const MyApp = ({ Component, pageProps, apolloClient }) => {
 
   return (
     <div onMouseMove={() => setShowHeader(true)}>
+      <Modal
+        modal={currentModal}
+        closeModal={() => setCurrentModal(null)}
+        currentUser={currentUser}
+      />
       <Layout
         currentUser={currentUser}
         apollo={apolloClient}
@@ -137,6 +144,7 @@ const MyApp = ({ Component, pageProps, apolloClient }) => {
           })
         }
         wordCount={wordCount}
+        openModal={openModal}
       >
         <Component
           {...pageProps}
@@ -148,8 +156,6 @@ const MyApp = ({ Component, pageProps, apolloClient }) => {
           setStartTime={setStartTime}
         />
       </Layout>
-
-      <Modal modal={currentModal} closeModal={() => setCurrentModal(null)} />
     </div>
   );
 };

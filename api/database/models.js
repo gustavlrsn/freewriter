@@ -35,48 +35,48 @@ const UserSchema = new Schema({
   // },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
-  timezone: String
-});
+  timezone: String,
+}).index({ 'emails.address': 1 }, { unique: true });
 
 const WordsSchema = new Schema({
   _id: {
-    type: String
+    type: String,
   },
   owner: {
     type: String,
-    index: true
+    index: true,
   },
   number_of_words: Number,
   elapsed_time: Number,
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   date: String,
   unlocks: [Number],
-  new_streak: Number
+  new_streak: Number,
 });
 
 const AchievementsSchema = new Schema({
   _id: String,
   owner: {
     type: String,
-    index: true
+    index: true,
   },
   type: Number,
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-const getModels = db => {
+const getModels = (db) => {
   return {
     User: db.model('User', UserSchema),
     Words: db.model('Words', WordsSchema),
-    Achievements: db.model('Achievements', AchievementsSchema)
+    Achievements: db.model('Achievements', AchievementsSchema),
   };
 };
 

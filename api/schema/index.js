@@ -10,7 +10,13 @@ const schema = gql`
 
   type Mutation {
     sendMagicLink(email: String!): Boolean
-    editProfile(username: String, timezone: String): User
+    editProfile(
+      username: String
+      dailygoal: Int
+      email: String
+      timezone: String
+      avatar: String
+    ): User
     letGo(number_of_words: Int!, elapsed_time: Int!, date: String!): Words
   }
 
@@ -27,6 +33,8 @@ const schema = gql`
     wordsToday: Int
     wordsTotal: Int
     username: String
+    email: String
+    emailVerified: Boolean
     wordsPerDay: [Words]
     words: [Words]
     achievements: [Achievements]

@@ -12,7 +12,8 @@ export default ({
   letGo,
   saveAsTxt,
   copyToClipboard,
-  wordCount
+  wordCount,
+  openModal,
 }) => {
   const router = useRouter();
 
@@ -66,6 +67,7 @@ export default ({
         letGo={letGo}
         saveAsTxt={saveAsTxt}
         copyToClipboard={copyToClipboard}
+        openModal={openModal}
       />
 
       <div className="max-w-screen-md mx-auto px-3 pt-24 pb-10">{children}</div>

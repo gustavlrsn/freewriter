@@ -3,6 +3,7 @@ const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 const mongoose = require('mongoose');
 const dayjs = require('dayjs');
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const resolvers = {
   Query: {
@@ -30,7 +31,6 @@ const resolvers = {
       { models: { User } }
     ) => {
       const email = inputEmail.toLowerCase();
-      const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
       if (!emailRegex.test(email)) throw new Error('Not a valid email address');
 
@@ -47,7 +47,7 @@ const resolvers = {
     },
     editProfile: async (
       parent,
-      { username, timezone },
+      { username, timezone, dailygoal, email, avatar },
       { currentUser, models: { User } }
     ) => {
       if (!currentUser) throw new Error('You need to be logged in..');
@@ -61,6 +61,15 @@ const resolvers = {
 
       if (username) user.username = username;
       if (timezone) user.timezone = timezone;
+      if (avatar) user.profile.avatar = avatar;
+      if (dailygoal) user.profile.dailygoal = dailygoal;
+
+      if (email) {
+        if (!emailRegex.test(email))
+          throw new Error('Not a valid email address');
+
+        user.emails = [{ address: email.toLowerCase(), verified: false }];
+      }
 
       return user.save();
     },
@@ -77,24 +86,20 @@ const resolvers = {
 
       const [{ wordsToday } = { wordsToday: 0 }] = await Words.aggregate([
         { $match: { date, owner: currentUser._id } },
-        { $group: { _id: null, wordsToday: { $sum: '$number_of_words' } } }
+        { $group: { _id: null, wordsToday: { $sum: '$number_of_words' } } },
       ]);
 
       const totalWordsToday = number_of_words + wordsToday;
 
       const [{ wordsTotal } = { wordsTotal: 0 }] = await Words.aggregate([
         { $match: { owner: currentUser._id } },
-        { $group: { _id: null, wordsTotal: { $sum: '$number_of_words' } } }
+        { $group: { _id: null, wordsTotal: { $sum: '$number_of_words' } } },
       ]);
 
       const totalWords = number_of_words + wordsTotal;
       const today = date;
-      const yesterday = dayjs(date)
-        .subtract(1, 'day')
-        .format('YYYY-MM-DD');
-      const lastdayofmonth = dayjs(date)
-        .endOf('month')
-        .format('YYYY-MM-DD');
+      const yesterday = dayjs(date).subtract(1, 'day').format('YYYY-MM-DD');
+      const lastdayofmonth = dayjs(date).endOf('month').format('YYYY-MM-DD');
       const daysinmonth = dayjs(date).daysInMonth();
       const month = Number(dayjs(date).format('YYMM'));
 
@@ -126,7 +131,7 @@ const resolvers = {
 
       // DAILY STREAK ACHIEVEMENTS
       var achievementsObj = await Achievements.find({ owner: currentUser._id });
-      var currentAchievements = achievementsObj.map(function(a) {
+      var currentAchievements = achievementsObj.map(function (a) {
         return a.type;
       });
       var dailyStreakAchievements = [1, 3, 7, 14, 30, 50, 100, 365, 500, 1000];
@@ -139,7 +144,7 @@ const resolvers = {
         await new Achievements({
           _id: mongoose.Types.ObjectId.valueOf(),
           type: new_streak,
-          owner: currentUser._id
+          owner: currentUser._id,
         }).save();
 
         unlocks.push(new_streak);
@@ -155,7 +160,7 @@ const resolvers = {
         await new Achievements({
           _id: mongoose.Types.ObjectId.valueOf(),
           type: month,
-          owner: currentUser._id
+          owner: currentUser._id,
         }).save();
         unlocks.push(month);
       }
@@ -174,7 +179,7 @@ const resolvers = {
           await new Achievements({
             _id: mongoose.Types.ObjectId.valueOf(),
             type: wordsAchievements[i],
-            owner: currentUser._id
+            owner: currentUser._id,
           }).save();
           unlocks.push(wordsAchievements[i]);
         }
@@ -189,10 +194,10 @@ const resolvers = {
         date,
         owner: currentUser._id,
         unlocks,
-        new_streak: currentUser.streak
+        new_streak: currentUser.streak,
       });
       return words.save();
-    }
+    },
   },
   User: {
     words: async (user, args, { models: { Words } }) => {
@@ -201,20 +206,26 @@ const resolvers = {
     achievements: async (user, args, { models: { Achievements } }) => {
       return Achievements.find({ owner: user._id });
     },
-    name: user => user.profile.name,
-    dailygoal: user => user.profile.dailygoal,
-    avatar: user => user.profile.avatar,
-    currentStreak: user => {
+    name: (user) => user.profile.name,
+    dailygoal: (user) => user.profile.dailygoal,
+    avatar: (user) => user.profile.avatar,
+    email: (user, args, { currentUser }) =>
+      currentUser._id === user._id ? user.emails[0].address : null,
+    emailVerified: (user) => user.emails[0].verified,
+    paying: (user) => {
+      const now = dayjs().unix();
+      const ends = user.subscription && user.subscription.ends;
+      return now < ends;
+    },
+    currentStreak: (user) => {
       // user.lastCompletedDay,
       const today = dayjs(
         new Date().toLocaleString('en-US', {
-          timeZone: user.timezone ? user.timezone : 'Europe/London'
+          timeZone: user.timezone ? user.timezone : 'Europe/London',
         })
       ).format('YYYY-MM-DD');
 
-      const yesterday = dayjs(today)
-        .subtract(1, 'day')
-        .format('YYYY-MM-DD');
+      const yesterday = dayjs(today).subtract(1, 'day').format('YYYY-MM-DD');
 
       if (
         user.lastCompletedDay === yesterday ||
@@ -226,19 +237,15 @@ const resolvers = {
       }
     },
     wordsToday: async (user, args, { models: { Words } }) => {
-      // this will be in servers timezone.. hmm.
       const today = dayjs(
         new Date().toLocaleString('en-US', {
-          timeZone: user.timezone ? user.timezone : 'Europe/London'
+          timeZone: user.timezone ? user.timezone : 'Europe/London',
         })
       ).format('YYYY-MM-DD');
 
-      const regular = dayjs().format('YYYY-MM-DD');
-      console.log({ today, regular });
-
       const [{ wordsToday } = { wordsToday: 0 }] = await Words.aggregate([
         { $match: { date: today, owner: user._id } },
-        { $group: { _id: null, wordsToday: { $sum: '$number_of_words' } } }
+        { $group: { _id: null, wordsToday: { $sum: '$number_of_words' } } },
       ]);
       return wordsToday;
     },
@@ -246,42 +253,42 @@ const resolvers = {
       const aggregate = await Words.aggregate([
         {
           $match: {
-            owner: user._id
-          }
+            owner: user._id,
+          },
         },
         {
           $group: {
             _id: '$date',
-            number_of_words: { $sum: '$number_of_words' }
-          }
+            number_of_words: { $sum: '$number_of_words' },
+          },
         },
         {
           $project: {
             _id: 0,
             date: '$_id',
-            number_of_words: 1
-          }
+            number_of_words: 1,
+          },
         },
         {
           $sort: {
-            date: 1
-          }
-        }
+            date: 1,
+          },
+        },
       ]);
       return aggregate;
     },
     wordsTotal: async (user, args, { models: { Words } }) => {
       const [{ wordsTotal } = { wordsTotal: 0 }] = await Words.aggregate([
         { $match: { owner: user._id } },
-        { $group: { _id: null, wordsTotal: { $sum: '$number_of_words' } } }
+        { $group: { _id: null, wordsTotal: { $sum: '$number_of_words' } } },
       ]);
       return wordsTotal;
-    }
+    },
   },
   Words: {
     owner: async (words, args, { models: { User } }) => {
       return User.findOne({ _id: words.owner });
-    }
+    },
   },
   Date: new GraphQLScalarType({
     name: 'Date',
@@ -297,8 +304,8 @@ const resolvers = {
         return parseInt(ast.value, 10); // ast value is always in string format
       }
       return null;
-    }
-  })
+    },
+  }),
 };
 
 module.exports = resolvers;

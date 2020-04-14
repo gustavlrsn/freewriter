@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+import { modals } from "./Modal";
 
-const ProfileDropdown = ({ currentUser, logOut }) => {
+const ProfileDropdown = ({ currentUser, logOut, openModal }) => {
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
-    const handleEscape = e => {
+    const handleEscape = (e) => {
       if (e.key === "Esc" || e.key === "Escape") {
         setOpen(false);
       }
@@ -34,15 +35,20 @@ const ProfileDropdown = ({ currentUser, logOut }) => {
           <button
             onClick={() => setOpen(false)}
             tabIndex="-1"
-            className="z-10 fixed inset-0 h-full w-full bg-black opacity-25 cursor-default"
+            className="z-10 fixed inset-0 h-full w-full cursor-default"
           ></button>
-          <div className="z-20 absolute right-0 w-48 mt-2 p-2 bg-white rounded-lg shadow-xl">
-            <a
-              href="#"
-              className="block px-2 py-1 text-gray-800 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
+          <div className="z-20 absolute right-0 w-48 mt-2 p-2 bg-white rounded-lg shadow-xl flex flex-col animation-fade-in animation-200ms animation-once">
+            <button
+              onClick={() => {
+                setOpen(false);
+                openModal({
+                  type: modals.EDIT_PROFILE,
+                });
+              }}
+              className="block px-2 py-1 text-left text-gray-800 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
             >
               Edit profile
-            </a>
+            </button>
             <a
               href="#"
               className="block px-2 py-1 text-gray-800 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"

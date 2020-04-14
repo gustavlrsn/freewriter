@@ -7,6 +7,9 @@ module.exports = {
       height: {
         "25": "6.25rem",
       },
+      width: {
+        "25": "6.25rem",
+      },
       backgroundColor: {
         "white-transparent": "rgba(255,255,255,0.75)",
       },
@@ -25,6 +28,14 @@ module.exports = {
       "fade-in": {
         from: {
           opacity: 0,
+        },
+      },
+      spin: {
+        from: {
+          transform: "rotate(0deg)",
+        },
+        to: {
+          transform: "rotate(360deg)",
         },
       },
     },
