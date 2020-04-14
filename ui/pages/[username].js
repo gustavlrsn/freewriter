@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { Tooltip } from "react-tippy";
 import dayjs from "dayjs";
 import Graph from "../components/Graph";
+import { Badge as BadgeIcon } from "../components/Icons";
 
 // hide navbar?
 // hide autoscroll?
@@ -14,6 +15,7 @@ export const USER_QUERY = gql`
       username
       dailygoal
       avatar
+      paying
       # streak
       # lastCompletedDay
       longestStreak
@@ -44,10 +46,11 @@ export default ({ currentUser }) => {
   const { data: { user } = { user: null }, loading, error } = useQuery(
     USER_QUERY,
     {
-      variables: { username: router.query.username.substr(1) }
+      variables: { username: router.query.username.substr(1) },
     }
   );
 
+  if (loading) return <div>Loading...</div>;
   if (!user) return null;
 
   return (
@@ -60,24 +63,31 @@ export default ({ currentUser }) => {
           />
 
           <h2 className="text-lg text-center font-semibold p-2 border-b">
-            {user.username}
-            {/* <i
-              className="fa fa-check-circle"
-              // style="color: #4B489B; margin-left: 2px;"
-              aria-hidden="true"
-              data-tooltip="Supporting member"
-              data-tooltip-direction="s"
-            ></i> */}
+            {user.username}{" "}
+            {user.paying && (
+              <Tooltip
+                title="Paying supporter"
+                size="small"
+                distance={5}
+                position="bottom"
+              >
+                <BadgeIcon className="w-5 h-5 inline text-gray-500 hover:text-indigo-darker transition-colors duration-75" />
+              </Tooltip>
+            )}
           </h2>
-          <div className="p-2 text-center text-xs uppercase">
+          <div className="p-2 text-center text-xs uppercase text-gray-700">
             <p>
-              <strong className="text-2xl">{user.currentStreak} </strong>day
-              streak
+              <strong className="text-2xl text-black">
+                {user.currentStreak}{" "}
+              </strong>
+              day streak
             </p>
             <p>Longest streak: {user.longestStreak}</p>
             <p>
-              <strong className="text-2xl">{user.wordsToday} </strong>words
-              today
+              <strong className="text-2xl text-black">
+                {user.wordsToday}{" "}
+              </strong>
+              words today
             </p>
             <p>Daily goal: {user.dailygoal}</p>
             <p> {user.wordsTotal} words total</p>
@@ -89,7 +99,7 @@ export default ({ currentUser }) => {
       </div>
 
       <div className="mt-6 bg-gray-100 rounded p-4 flex flex-wrap">
-        {user.achievements.map(achievement => (
+        {user.achievements.map((achievement) => (
           <Tooltip
             title={`Unlocked on ${dayjs(achievement.createdAt).format(
               "MMMM D, YYYY"
@@ -116,7 +126,7 @@ export default ({ currentUser }) => {
           </tr>
         </thead>
         <tbody>
-          {user.words.map(entry => (
+          {user.words.map((entry) => (
             <tr key={entry._id} className="border-t">
               <td className="py-2">
                 {dayjs(entry.createdAt).format("ddd, MMM D, YYYY h:mm A")}

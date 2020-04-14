@@ -39,6 +39,7 @@ const schema = gql`
     words: [Words]
     achievements: [Achievements]
     timezone: String
+    paying: Boolean
   }
 
   type Words {

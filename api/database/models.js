@@ -1,5 +1,26 @@
 const { Schema } = require('mongoose');
 
+const SubscriptionSchema = new Schema({
+  stripeId: String,
+  plan: String,
+  ends: Number,
+  status: String,
+  country_data: new Schema({
+    user_country: String,
+    card_country: String,
+    ip_country: String,
+  }),
+  payment: new Schema({
+    card: new Schema({
+      type: String,
+      lastFour: String,
+      country: String,
+    }),
+    nextPaymentDue: Number,
+    tax_percent: Number,
+  }),
+});
+
 // User
 const UserSchema = new Schema({
   _id: {
@@ -38,6 +59,7 @@ const UserSchema = new Schema({
     default: Date.now,
   },
   timezone: String,
+  subscription: SubscriptionSchema,
 }).index({ 'emails.address': 1 }, { unique: true });
 
 const WordsSchema = new Schema({
