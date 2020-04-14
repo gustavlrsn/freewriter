@@ -1,3 +1,6 @@
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
+import useForm from "react-hook-form";
 import { Tooltip } from "react-tippy";
 import { QuestionMark as QuestionMarkIcon } from "../Icons";
 
@@ -948,7 +951,19 @@ const timezones = [
   "Pacific/Wallis",
 ];
 
+const EDIT_PROFILE_MUTATION = gql`
+  mutation EditProfile($timezone: String!) {
+    editProfile(timezone: $timezone) {
+      _id
+      timezone
+    }
+  }
+`;
+
 const WelcomeAndSetTimezone = ({ closeModal }) => {
+  const [editProfile] = useMutation(EDIT_PROFILE_MUTATION);
+  const { handleSubmit, register, errors } = useForm();
+
   const tzFromBrowser = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
     <div className="">
@@ -973,34 +988,42 @@ const WelcomeAndSetTimezone = ({ closeModal }) => {
         <div className="block sm:flex justify-between">
           <h2 className="font-medium inline text-lg text-gray-900">
             Confirm your timezone{" "}
-            <Tooltip
-              title="Timezone is used to calculate stats, how many words you wrote every day and your daily streak et cetera."
-              //size="small"
-            >
+            <Tooltip title="Timezone is used to calculate stats, how many words you wrote every day and your daily streak et cetera.">
               <QuestionMarkIcon className="w-5 h-5 inline text-gray-600 hover:text-gray-800" />
             </Tooltip>
-          </h2>{" "}
+          </h2>
           <span className="tracking-wide hidden sm:inline-block  uppercase text-sm text-purple-600 border border-purple-200 bg-purple-100 rounded-full px-2 py-1">
             Action required
           </span>
         </div>
-        <select
-          defaultValue={tzFromBrowser}
-          className="block my-3 text-lg border border-gray-300 py-2 px-1 focus:outline-none focus:shadow-outline"
+        <form
+          onSubmit={handleSubmit((variables) =>
+            editProfile({ variables })
+              .then(() => {
+                closeModal();
+              })
+              .catch((err) => alert(err.message))
+          )}
         >
-          {timezones.map((timezone) => (
-            <option key={timezone} value={timezone}>
-              {timezone}
-            </option>
-          ))}
-        </select>
-        <button
-          //#6118f2
-          onClick={closeModal}
-          className="text-white bg-indigo hover:bg-indigo-darker transition-colors duration-100 rounded-md px-4 py-2 focus:outline-none focus:shadow-outline"
-        >
-          Save
-        </button>
+          <select
+            defaultValue={tzFromBrowser}
+            ref={register}
+            name="timezone"
+            className="block my-3 text-lg border border-gray-300 py-2 px-1 focus:outline-none focus:shadow-outline"
+          >
+            {timezones.map((timezone) => (
+              <option key={timezone} value={timezone}>
+                {timezone}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="text-white bg-indigo hover:bg-indigo-darker transition-colors duration-100 rounded-md px-4 py-2 focus:outline-none focus:shadow-outline"
+          >
+            Save
+          </button>
+        </form>
       </div>
     </div>
   );

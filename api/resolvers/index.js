@@ -45,9 +45,9 @@ const resolvers = {
 
       return await sendMagicLinkEmail(user);
     },
-    updateProfile: async (
+    editProfile: async (
       parent,
-      { name },
+      { username, timezone },
       { currentUser, models: { User } }
     ) => {
       if (!currentUser) throw new Error('You need to be logged in..');
@@ -59,7 +59,8 @@ const resolvers = {
         user.verifiedEmail = true;
       }
 
-      if (name) user.name = name;
+      if (username) user.username = username;
+      if (timezone) user.timezone = timezone;
 
       return user.save();
     },
