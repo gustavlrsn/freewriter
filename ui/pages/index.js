@@ -1,5 +1,6 @@
 import TextareaAutosize from "react-textarea-autosize";
 import dayjs from "dayjs";
+import LandingPage from "components/LandingPage";
 
 export default ({
   currentUser,
@@ -7,9 +8,11 @@ export default ({
   writings,
   setWritings,
   wordCount,
-  setStartTime
+  setStartTime,
 }) => {
-  const onKeyDown = e => {
+  if (!currentUser) return <LandingPage />;
+
+  const onKeyDown = (e) => {
     const isScrolledToBottom =
       document.body.scrollHeight - window.innerHeight <=
       document.documentElement.scrollTop + 30;
@@ -22,7 +25,7 @@ export default ({
       <TextareaAutosize
         onKeyDown={onKeyDown}
         value={writings}
-        onChange={e => {
+        onChange={(e) => {
           if (writings.length === 0 && e.target.value.length) {
             setStartTime(dayjs());
           }
