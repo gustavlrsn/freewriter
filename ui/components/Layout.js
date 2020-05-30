@@ -7,7 +7,7 @@ import ProgressBar from "./ProgressBar";
 export default ({
   children,
   currentUser,
-  apollo,
+  apolloClient,
   showHeader,
   letGo,
   saveAsTxt,
@@ -21,7 +21,7 @@ export default ({
   React.useEffect(() => {
     if (router.query.token) {
       cookie.set("token", router.query.token, { expires: 30 });
-      apollo.resetStore();
+      apolloClient.resetStore();
       Router.push("/"); // change this to just be replace current route?
       // trigger alert or something on invalid token
     }
@@ -37,7 +37,7 @@ export default ({
 
   const logOut = () => {
     cookie.remove("token");
-    apollo.resetStore();
+    apolloClient.resetStore();
     Router.push("/");
   };
 

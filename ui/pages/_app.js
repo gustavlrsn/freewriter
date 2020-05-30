@@ -52,16 +52,11 @@ Router.events.on("routeChangeComplete", () => {
 });
 
 const MyApp = ({ Component, pageProps, apolloClient }) => {
-  let currentUser;
+  const { data: { currentUser } = { currentUser: null } } = useQuery(
+    CURRENT_USER_QUERY
+  );
 
-  const { data } = useQuery(CURRENT_USER_QUERY, { client: apolloClient });
-  if (data) {
-    currentUser = data.currentUser;
-  }
-
-  const [letGoMutation] = useMutation(LET_GO_MUTATION, {
-    client: apolloClient,
-  });
+  const [letGoMutation] = useMutation(LET_GO_MUTATION);
 
   const [currentModal, setCurrentModal] = useState(null);
 
@@ -133,7 +128,7 @@ const MyApp = ({ Component, pageProps, apolloClient }) => {
       />
       <Layout
         currentUser={currentUser}
-        apollo={apolloClient}
+        apolloClient={apolloClient}
         showHeader={showHeader}
         letGo={letGo}
         saveAsTxt={() => saveAsTxt(writings)}
