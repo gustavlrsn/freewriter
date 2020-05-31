@@ -22,20 +22,55 @@ const WelcomeAndSetTimezone = ({ closeModal }) => {
   return (
     <div className="max-w-screen-sm">
       <span className="text-gray-500 text-sm uppercase tracking-wide">
-        April 20, 2020
+        May 31, 2020
       </span>
       <h1 className="text-3xl mb-4">Freewriter has been updated!</h1>
-      <p className="mb-4 text-gray-800"></p>
+      <p className="mb-4 text-gray-800">
+        I have had to do a complete rewrite of the code so some things might
+        look slightly different, but most of all you should notice way better
+        performance and lots of fixed bugs.
+      </p>
 
       <p className="mb-4 text-gray-800">
-        This is a complete rewrite of the code, but sticking to the same
-        features and functionality, you will not notice much changes beyond a
-        lot less bugs and better performance.
+        Some things, like the "experimental" settings, are not yet implemented.
+        I'll be working on getting more customization of the writing experience
+        back online and with the new updated version you can expect more
+        frequent updates.
       </p>
       <p className="mb-4 text-gray-800">
-        With the rewrite complete I can now focus on improving the app and
-        develop new features. I'd like to invite you to be part of this
-        development, and help me build the best sensemaking tool out there.
+        I'd love to hear from you what you would like to see in terms of
+        features and improvements, or if you spot any bug or oddity, feel free
+        to{" "}
+        <a
+          className="text-purple-800"
+          href="mailto:gustav.larsson@gmail.com"
+          target="_blank"
+        >
+          send an email{" "}
+        </a>{" "}
+        or reach out through{" "}
+        <a
+          className="text-purple-800"
+          href="https://twitter.com/gustavlrsn"
+          target="_blank"
+        >
+          Twitter
+        </a>
+        .
+      </p>
+
+      <p className="mb-4 text-gray-800">Thanks!</p>
+
+      <p className="mb-4 text-gray-800">
+        - Gustav{" "}
+        <a
+          className="text-purple-800"
+          href="https://twitter.com/gustavlrsn"
+          target="_blank"
+        >
+          @gustavlrsn
+        </a>{" "}
+        <span className="text-gray-500">(creator of Freewriter)</span>
       </p>
 
       <div className="bg-gray-100 border border-gray-300 rounded p-4">
