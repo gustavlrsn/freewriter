@@ -34,11 +34,11 @@ const server = new ApolloServer({
 
     return {
       models,
-      currentUser
+      currentUser,
     };
   },
   playground: true,
-  introspection: true
+  introspection: true,
 });
 
 module.exports = cors((req, res) => {

@@ -8,11 +8,11 @@
     { "src": "/api", "dest": "/api/index.js" },
     { "src": "/(.*)", "dest": "/ui/$1", "continue": true }
   ],
-  "regions": ["bru1"],
+  "regions": ["iad1"],
   "env": {
-    "MONGO_URL": "@selfwriter-mongodb-uri",
-    "MAILGUN_API_KEY": "faulty",
-    "JWT_SECRET": "@selfwriter-jwt-secret"
+    "MONGO_URL": "@freewriter-mongo-url",
+    "MAILGUN_API_KEY": "@freewriter-mailgun-api-key",
+    "JWT_SECRET": "@freewriter-jwt-secret"
   },
   "scope": "gustav"
 }
