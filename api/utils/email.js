@@ -1,11 +1,11 @@
 const mailgun = require('mailgun-js')({
   apiKey: process.env.MAILGUN_API_KEY,
   domain: 'freewriter.io',
-  host: 'api.eu.mailgun.net'
 });
+
 const { generateLoginJWT } = require('./auth');
 
-const sendMagicLinkEmail = async user => {
+const sendMagicLinkEmail = async (user) => {
   // send magic link in production, log it in development
   const token = await generateLoginJWT(user);
 
@@ -15,7 +15,7 @@ const sendMagicLinkEmail = async user => {
       from: 'Freewriter <info@freewriter.io>',
       to: user.emails[0].address,
       subject: 'Login to Freewriter',
-      text: `Here is your magic link: ${url}`
+      text: `Here is your magic link: ${url}`,
     };
 
     return mailgun
@@ -25,7 +25,7 @@ const sendMagicLinkEmail = async user => {
         console.log('Successfully sent magic link with Mailgun');
         return true;
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error('Failed to send magic link');
       });
   } else {
@@ -36,5 +36,5 @@ const sendMagicLinkEmail = async user => {
 };
 
 module.exports = {
-  sendMagicLinkEmail
+  sendMagicLinkEmail,
 };
