@@ -34,6 +34,7 @@ export default ({
         placeholder="Write it out..."
         autoFocus
         className="writearea"
+        spellcheck="false"
       />
       <style jsx global>{`
         @font-face {
