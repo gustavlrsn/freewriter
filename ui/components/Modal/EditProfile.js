@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Tooltip } from "react-tippy";
 
-import { timezones } from "../../lib/timezones";
-import Button from "../Button";
+import avatars from "lib/avatars";
+import { timezones } from "lib/timezones";
+import Button from "components/Button";
 
 const EDIT_PROFILE_MUTATION = gql`
   mutation EditProfile(
@@ -113,14 +114,14 @@ export default ({ currentUser, closeModal }) => {
               >
                 Email
               </label>
-              {!currentUser.emailVerified && !dirtyFields.has("email") && (
+              {/* {!currentUser.emailVerified && !dirtyFields.has("email") && (
                 <button
                   tabIndex="-1"
                   className="text-xs text-red-900 bg-red-200 rounded-full hover:bg-red-300 focus:outline-none focus:shadow-outline block px-2"
                 >
                   Not verified - resend verification email
                 </button>
-              )}
+              )} */}
             </div>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:shadow-outline"
@@ -212,48 +213,3 @@ export default ({ currentUser, closeModal }) => {
     </div>
   );
 };
-
-const avatars = [
-  { id: "achebe", name: "Chinua Achebe" },
-  { id: "adams", name: "Douglas Adams" },
-  { id: "ali", name: "Muhammad Ali" },
-  { id: "angelou", name: "Maya Angelou" },
-  { id: "arendt", name: "Hannah Arendt" },
-  { id: "baldwin", name: "James Baldwin" },
-  { id: "barnes", name: "Djuna Barnes" },
-  { id: "beauvoir", name: "Simone de Beauvoir" },
-  { id: "beckett", name: "Samuel Beckett" },
-  { id: "christie", name: "Agatha Christie" },
-  { id: "dali", name: "Salvador Dali" },
-  { id: "dostoyevsky", name: "Fyodor Dostoyevsky" },
-  { id: "earhart", name: "Amelia Earhart" },
-  { id: "gordimer", name: "Nadine Gordimer" },
-  { id: "hemingway", name: "Ernest Hemingway" },
-  { id: "huxley", name: "Alduous Huxley" },
-  { id: "joyce", name: "James Joyce" },
-  { id: "jung", name: "Carl Jung" },
-  { id: "kafka", name: "Franz Kafka" },
-  { id: "kahlo", name: "Frida Kahlo" },
-  { id: "kerouac", name: "Jack Kerouac" },
-  { id: "lee", name: "Harper Lee" },
-  { id: "lennon", name: "John Lennon" },
-  { id: "marquez", name: "Gabriel García Márquez" },
-  { id: "nin", name: "Anaïs Nin" },
-  { id: "orwell", name: "George Orwell" },
-  { id: "nietzsche", name: "Friedrich Nietzsche" },
-  { id: "plath", name: "Sylvia Plath" },
-  { id: "rand", name: "Ayn Rand" },
-  { id: "rich", name: "Adrienne Rich" },
-  { id: "salinger", name: "J. D. Salinger" },
-  { id: "steinbeck", name: "John Steinbeck" },
-  { id: "suyin", name: "Han Suyin" },
-  { id: "thoreau", name: "Henry David Thoreau" },
-  { id: "tolkien", name: "J. R. R. Tolkien" },
-  { id: "tolstoy", name: "Leo Tolstoy" },
-  { id: "tupac", name: "Tupac Shakur" },
-  { id: "vonnegut", name: "Kurt Vonnegut" },
-  { id: "watts", name: "Alan Watts" },
-  { id: "weil", name: "Simone Weil" },
-  { id: "whitman", name: "Walt Whitman" },
-  { id: "woolf", name: "Virginia Woolf" },
-];
