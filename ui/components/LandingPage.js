@@ -12,19 +12,17 @@ export default () => {
       <h1 className="text-6xl font-bold text-center text-gray-900">
         Know Yourself.
       </h1>
-      <span className="text-3xl text-gray-700 text-center block mb-4">
+      <span className="text-3xl text-gray-700 text-center block mb-6">
         Experience the magic of freewriting. <br /> Write every day, without
         stopping to judge or edit.
       </span>
       <img src="/img/demo.gif" className="rounded-md shadow-md mb-8" />
 
-      <div className="flex justify-center mb-8">
+      {/* <div className="flex justify-center mb-8">
         <Link href="/signup">
-          <a className="inline-block bg-purple-900 text-white px-4 py-2 rounded shadow hover:bg-purple-800">
-            Sign up, it's free!
-          </a>
+          <a className="btn">Sign up, it's free!</a>
         </Link>
-      </div>
+      </div> */}
 
       {/* <h2 className="text-center text-purple-800 font-semibold uppercase">
         Why?
