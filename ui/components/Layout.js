@@ -45,6 +45,7 @@ export default ({
     <>
       <Head>
         <title>Freewriter {Boolean(wordCount) ? `(${wordCount})` : ""}</title>
+        <link rel="shortcut icon" href="/favicon.png" />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
