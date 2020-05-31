@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Link from "next/link";
 import dayjs from "dayjs";
+import { Loader as LoaderIcon } from "../components/Icons";
 // TODO:
 // hide navbar?
 // hide autoscroll?
@@ -25,14 +26,19 @@ export const TRIBE_QUERY = gql`
   }
 `;
 
-export default ({ currentUser }) => {
+const TribePage = (props) => {
   const {
     data: { tribeWords } = { tribeWords: null },
     loading,
-    error
+    error,
   } = useQuery(TRIBE_QUERY);
 
-  if (!tribeWords) return null;
+  if (!tribeWords)
+    return (
+      <div className="flex justify-center items-center min-h-full">
+        <LoaderIcon className="w-6 h-6 text-gray-600 animation-spin animation-linear animation-2s" />
+      </div>
+    );
 
   const wordsToday = tribeWords.reduce(
     (acc, obj) => acc + obj.number_of_words,
@@ -51,7 +57,7 @@ export default ({ currentUser }) => {
             {wordsToday} words by {noOfAuthors} writers today!
           </h2>
           <ul>
-            {tribeWords.map(obj => (
+            {tribeWords.map((obj) => (
               <li key={obj._id} className="mb-2 text-gray-800">
                 <Link href="/[username]" as={`/@${obj.owner.username}`}>
                   <a className=" items-center text-purple-800 hover:text-purple-900">
@@ -66,7 +72,7 @@ export default ({ currentUser }) => {
                   wrote {obj.number_of_words} words in{" "}
                   {Math.round(obj.elapsed_time / (1000 * 60))} minutes
                 </span>
-                {obj.unlocks.map(unlock => (
+                {obj.unlocks.map((unlock) => (
                   <img
                     key={unlock}
                     src={`/achievements/${unlock}.png`}
@@ -81,7 +87,7 @@ export default ({ currentUser }) => {
           </ul>
         </div>
         <div>
-          <div className="bg-gray-100 rounded px-3 py-4 text-center">
+          <div className="bg-gray-100 rounded px-3 py-4 text-center mb-4">
             <h2 className="font-semibold mb-2">Monthly challenge</h2>
 
             <img
@@ -94,8 +100,25 @@ export default ({ currentUser }) => {
               unlock this badge!
             </p>
           </div>
+
+          <div className="px-3 py-4 text-center">
+            <h2 className="font-semibold mb-2">Feeling social?</h2>
+            <p className="text-sm text-gray-800">
+              Join the{" "}
+              <a
+                href="https://www.facebook.com/groups/FreewriteTribe/"
+                target="_blank"
+                className="text-purple-800"
+              >
+                facebook group
+              </a>
+              .
+            </p>
+          </div>
         </div>
       </div>
     </>
   );
 };
+
+export default TribePage;
