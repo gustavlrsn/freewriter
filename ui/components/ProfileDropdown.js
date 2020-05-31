@@ -49,19 +49,18 @@ const ProfileDropdown = ({ currentUser, logOut, openModal }) => {
             >
               Edit profile
             </button>
-            <a
+            {/* <a
               href="#"
-              className="block px-2 py-1 text-gray-800 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
+              className="block px-2 py-1 text-left text-gray-800 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
             >
               Manage subscription
-            </a>
-            <a
-              href="#"
+            </a> */}
+            <button
               onClick={logOut}
-              className="block px-2 py-1 text-gray-500 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
+              className="block px-2 py-1 text-left text-gray-500 hover:bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-200"
             >
               Sign out
-            </a>
+            </button>
           </div>
         </>
       )}
