@@ -76,11 +76,14 @@ export default ({
             </a>
           </Link>
           <div className="sm:hidden flex">
-            <WriteActions
-              letGo={letGo}
-              saveAsTxt={saveAsTxt}
-              copyToClipboard={copyToClipboard}
-            />
+            {currentUser && router.pathname === "/" && (
+              <WriteActions
+                letGo={letGo}
+                saveAsTxt={saveAsTxt}
+                copyToClipboard={copyToClipboard}
+              />
+            )}
+
             <button
               onClick={() => setMenuOpen(!isMenuOpen)}
               type="button"
@@ -198,18 +201,23 @@ export default ({
               </div>
             </>
           ) : (
-            <div className="px-2 py-3 sm:flex  sm:p-0 sm:items-center">
-              <Link href="/login">
-                <a className="block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
-                  Log in
-                </a>
-              </Link>
-              <Link href="/signup">
-                <a className="mt-1 block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
-                  Sign up
-                </a>
-              </Link>
-            </div>
+            <>
+              <div className="flex items-center ml-2 text-gray-600 font-medium">
+                Freewriter
+              </div>
+              <div className="px-2 py-3 sm:flex  sm:p-0 sm:items-center sm:justify-end">
+                <Link href="/login">
+                  <a className="block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
+                    Log in
+                  </a>
+                </Link>
+                {/* <Link href="/signup">
+                  <a className="mt-1 block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
+                    Sign up
+                  </a>
+                </Link> */}
+              </div>
+            </>
           )}
         </nav>
       </div>
