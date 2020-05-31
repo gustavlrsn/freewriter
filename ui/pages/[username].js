@@ -3,9 +3,9 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { Tooltip } from "react-tippy";
 import dayjs from "dayjs";
-import Graph from "../components/Graph";
-import { Badge as BadgeIcon } from "../components/Icons";
 
+import Graph from "components/Graph";
+import { Loader as LoaderIcon, Badge as BadgeIcon } from "components/Icons";
 // hide navbar?
 // hide autoscroll?
 export const USER_QUERY = gql`
@@ -50,7 +50,12 @@ export default ({ currentUser }) => {
     }
   );
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-full">
+        <LoaderIcon className="w-6 h-6 text-gray-600 animation-spin animation-linear animation-2s" />
+      </div>
+    );
   if (!user) return null;
 
   return (
