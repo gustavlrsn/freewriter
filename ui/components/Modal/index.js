@@ -43,7 +43,7 @@ export function Modal({ modal, closeModal, currentUser }) {
           tabIndex="-1"
           className="fixed top-0 left-0 w-screen bottom-0 cursor-default bg-black opacity-50 animation-fade-in animation-ease-out animation-200ms animation-once z-10"
         ></button>
-        <div className="mx-auto min-h-full max-w-screen-md flex items-center relative">
+        <div className="mx-auto min-h-full max-w-screen-md flex items-center justify-center relative">
           <div className=" bg-white relative rounded-lg p-8 m-4 z-50 shadow animation-fade-in animation-ease-out animation-200ms animation-once">
             <ModalComponent
               closeModal={closeModal}

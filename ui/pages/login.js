@@ -28,7 +28,7 @@ export default ({ currentUser }) => {
     <div>
       <div className="text-center md:px-32  pt-10">
         {data && data.sendMagicLink ? (
-          <h1 className="text-xl font-semibold text-gray-800 mb-4">
+          <h1 className="text-xl font-semibold text-gray-800 mb-4 animation-fade-in animation-once duration-75">
             {process.env.IS_PROD
               ? "Magic link sent! Check your inbox!"
               : "Find the magic link in console (in development)."}
@@ -45,7 +45,7 @@ export default ({ currentUser }) => {
             <div className="flex">
               <input
                 name="email"
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mr-4 focus:outline-none focus:shadow-outline"
+                className="appearance-none block flex-grow bg-gray-200 focus:bg-white transition-colors transition-shadow duration-100 border border-gray-200 rounded py-3 px-4 mr-4 focus:outline-none focus:shadow-outline-indigo"
                 disabled={loading}
                 placeholder="Email"
                 ref={register({
@@ -57,7 +57,7 @@ export default ({ currentUser }) => {
                 })}
               />
               <Button type="submit" disabled={loading} loading={loading}>
-                Send
+                Send magic link
               </Button>
             </div>
 

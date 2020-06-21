@@ -25,6 +25,27 @@ const resolvers = {
     }
   },
   Mutation: {
+    signUp: async (
+      parent,
+      { avatar, dailygoal, email, username, timezone },
+      { models: { User } }
+    ) => {
+      const user = await new User({
+        _id: mongoose.Types.ObjectId().valueOf(),
+        username,
+        profile: { avatar, dailygoal },
+        timezone,
+        emails: [{ address: email, verified: false }],
+      }).save();
+
+      if (user) {
+        console.log({ userExists: user });
+        await sendMagicLinkEmail(user);
+        return user;
+      }
+      throw new Error('Could not create account');
+      console.log({ user });
+    },
     sendMagicLink: async (
       parent,
       { email: inputEmail },
@@ -142,7 +163,7 @@ const resolvers = {
         !currentAchievements.includes(new_streak)
       ) {
         await new Achievements({
-          _id: mongoose.Types.ObjectId.valueOf(),
+          _id: mongoose.Types.ObjectId().valueOf(),
           type: new_streak,
           owner: currentUser._id,
         }).save();
@@ -158,7 +179,7 @@ const resolvers = {
         !currentAchievements.includes(month)
       ) {
         await new Achievements({
-          _id: mongoose.Types.ObjectId.valueOf(),
+          _id: mongoose.Types.ObjectId().valueOf(),
           type: month,
           owner: currentUser._id,
         }).save();
@@ -177,7 +198,7 @@ const resolvers = {
           !currentAchievements.includes(wordsAchievements[i])
         ) {
           await new Achievements({
-            _id: mongoose.Types.ObjectId.valueOf(),
+            _id: mongoose.Types.ObjectId().valueOf(),
             type: wordsAchievements[i],
             owner: currentUser._id,
           }).save();
@@ -210,7 +231,9 @@ const resolvers = {
     dailygoal: (user) => user.profile.dailygoal,
     avatar: (user) => user.profile.avatar,
     email: (user, args, { currentUser }) =>
-      currentUser._id === user._id ? user.emails[0].address : null,
+      currentUser && currentUser._id === user._id
+        ? user.emails[0].address
+        : null,
     emailVerified: (user) => user.emails[0].verified,
     paying: (user) => {
       const now = dayjs().unix();

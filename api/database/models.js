@@ -24,36 +24,29 @@ const SubscriptionSchema = new Schema({
 // User
 const UserSchema = new Schema({
   _id: {
-    type: String
+    type: String,
   },
   username: {
     type: String,
     required: true,
-    unique: true
+    index: {
+      unique: true,
+      collation: { locale: 'en', strength: 2 },
+    },
   },
-  profile: new Schema({
-    name: String,
+  profile: {
     avatar: String,
-    dailygoal: Number
-  }),
+    dailygoal: Number,
+  },
   lastCompletedDay: String,
   streak: Number,
   longestStreak: Number,
   emails: [
-    new Schema({
+    {
       address: String,
-      verified: Boolean
-    })
+      verified: Boolean,
+    },
   ],
-  // email: {
-  //   type: String,
-  //   required: true,
-  //   unique: true
-  // },
-  // verified_email: {
-  //   type: Boolean,
-  //   default: false
-  // },
   createdAt: {
     type: Date,
     default: Date.now,

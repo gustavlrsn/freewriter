@@ -114,9 +114,10 @@ export default ({
                   <a
                     className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
                       router.pathname === "/"
-                        ? "border-indigo-darker text-gray-800"
+                        ? "border-indigo text-gray-800"
                         : "border-transparent text-gray-600"
                     }`}
+                    style={{ marginBottom: "-1px" }}
                   >
                     Write
                   </a>
@@ -125,9 +126,10 @@ export default ({
                   <a
                     className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
                       router.query.username === `@${currentUser.username}`
-                        ? "border-indigo-darker text-gray-800"
+                        ? "border-indigo text-gray-800"
                         : "border-transparent text-gray-600"
                     }`}
+                    style={{ marginBottom: "-1px" }}
                   >
                     Stats
                   </a>
@@ -136,9 +138,10 @@ export default ({
                   <a
                     className={`mt-1 block font-medium hover:text-gray-800 px-1 pt-2 pb-1 sm:mt-0 sm:ml-4 border-b-2 h-full flex items-center ${
                       router.pathname === "/tribe"
-                        ? "border-indigo-darker text-gray-800"
+                        ? "border-indigo text-gray-800"
                         : "border-transparent text-gray-600"
                     }`}
+                    style={{ marginBottom: "-1px" }}
                   >
                     Tribe
                   </a>
@@ -207,15 +210,15 @@ export default ({
               </div>
               <div className="px-2 py-3 sm:flex  sm:p-0 sm:items-center sm:justify-end">
                 <Link href="/login">
-                  <a className="block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
+                  <a className="block text-gray-900 font-medium hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
                     Log in
                   </a>
                 </Link>
-                {/* <Link href="/signup">
-                  <a className="mt-1 block text-gray-800 font-semibold hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
+                <Link href="/signup">
+                  <a className="block text-gray-900 font-medium hover:bg-gray-200 px-2 py-1 rounded sm:mt-0 sm:ml-2">
                     Sign up
                   </a>
-                </Link> */}
+                </Link>
               </div>
             </>
           )}

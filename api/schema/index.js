@@ -9,6 +9,13 @@ const schema = gql`
   }
 
   type Mutation {
+    signUp(
+      avatar: String!
+      username: String!
+      dailygoal: Int!
+      timezone: String!
+      email: String!
+    ): User
     sendMagicLink(email: String!): Boolean
     editProfile(
       username: String

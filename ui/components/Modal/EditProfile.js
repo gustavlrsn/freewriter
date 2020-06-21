@@ -124,7 +124,7 @@ export default ({ currentUser, closeModal }) => {
               )} */}
             </div>
             <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:shadow-outline"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:shadow-outline-indigo"
               id="email"
               name="email"
               type="text"

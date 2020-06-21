@@ -60,7 +60,7 @@ const TribePage = (props) => {
             {tribeWords.map((obj) => (
               <li key={obj._id} className="mb-2 text-gray-800">
                 <Link href="/[username]" as={`/@${obj.owner.username}`}>
-                  <a className=" items-center text-purple-800 hover:text-purple-900">
+                  <a className=" items-center text-indigo hover:text-indigo-darker">
                     <img
                       src={`/avatars/${obj.owner.avatar}.png`}
                       className="w-10 h-10 inline-block rounded-full mr-1"
@@ -108,7 +108,7 @@ const TribePage = (props) => {
               <a
                 href="https://www.facebook.com/groups/FreewriteTribe/"
                 target="_blank"
-                className="text-purple-800"
+                className="text-indigo"
               >
                 facebook group
               </a>

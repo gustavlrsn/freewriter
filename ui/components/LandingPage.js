@@ -2,17 +2,17 @@ import Link from "next/link";
 
 const css = {
   h2: "text-3xl text-gray-900 font-semibold mb-4 tracking-tight",
-  p: "text-gray-700 font-light text-xl mb-4",
-  a: "text-purple-800 hover:text-purple-900",
+  p: "text-gray-800 text-lg leading-relaxed mb-4",
+  a: "text-indigo-darker hover:text-indigo",
 };
 
 export default () => {
   return (
     <div>
-      <h1 className="text-6xl font-bold text-center text-gray-900">
+      <h1 className="text-5xl font-bold text-center text-gray-900">
         Know Yourself.
       </h1>
-      <span className="text-3xl text-gray-700 text-center block mb-6">
+      <span className="text-2xl text-gray-700 text-center block mb-6">
         Experience the magic of freewriting. <br /> Write every day, without
         stopping to judge or edit.
       </span>

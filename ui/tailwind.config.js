@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   theme: {
     extend: {
@@ -15,6 +17,20 @@ module.exports = {
       },
       animationDuration: {
         "200ms": "200ms",
+      },
+      fontFamily: {
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+      },
+      shadowOutline: {
+        shadow: "0 0 0 3px",
+        alpha: "0.7",
+      },
+      borderWidth: {
+        default: "1px",
+        "0": "0",
+        "2": "2px",
+        "3": "3px",
+        "4": "4px",
       },
       colors: {
         indigo: {
@@ -40,6 +56,12 @@ module.exports = {
       },
     },
   },
-  variants: {},
-  plugins: [require("tailwindcss-animations")],
+  variants: {
+    shadowOutline: ["focus"],
+  },
+  plugins: [
+    require("tailwindcss-animations"),
+    require("tailwindcss-font-inter")(),
+    require("tailwindcss-shadow-outline-colors")(),
+  ],
 };

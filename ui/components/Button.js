@@ -5,7 +5,7 @@ export default ({ children, disabled, loading, ...props }) => {
     <button
       {...props}
       disabled={disabled || loading}
-      className={`btn relative flex justify-center items-center ${
+      className={`btn relative flex justify-center items-center font-medium ${
         (disabled || loading) && "opacity-25"
       } ${props.className}`}
     >
